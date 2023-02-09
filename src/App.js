@@ -6,7 +6,7 @@ import { Home, Contact } from './pages';
 // Components
 import { Header, Footer } from './components'
 
-import './App.scss';
+import './theme.css';
 
 function App() {
   return <>

@@ -1,0 +1,26 @@
+.footer {
+  background-color: var(--secondary-blue);
+  color: var(--color-white);
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+
+  p {
+    color: var(--color-white);
+  }
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray);
+    &:hover {
+      color: var(--color-yellow);
+      font-size: 1.45rem;
+    }
+    .icon {
+      margin: 0 5px 0 10px;
+    }
+  }
+}

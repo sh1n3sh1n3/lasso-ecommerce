@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --font-family: "Poppins", sans-serif;
-  --dark-blue: #0a1930;
-  --light-blue: #1f93ff;
+  --font-family: 'Poppins', sans-serif;
+  --primary-blue: #131921;
+  --secondary-blue: #232f3e;
 
   --color-white: #fff;
   --color-dark: #333;
@@ -11,10 +11,11 @@
   --color-grey: #eee;
   --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 
-  --color-purple: #9d0191;
-  --color-orange: #ff7722;
+  --color-yellow: #f3a847;
+  --color-orange: #ff9900;
+  --dark-orange: #f56600;
 
-  --color-primary: #007bff;
+  --color-primary: #232f3e;
   --color-success: #28a745;
   --color-danger: #ff1f1f;
 }
@@ -392,7 +393,7 @@ p {
   position: relative;
 }
 .--line::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   bottom: -5px;
@@ -402,11 +403,7 @@ p {
   margin-bottom: 1rem;
 
   background: rgb(217, 8, 170);
-  background: linear-gradient(
-    135deg,
-    rgba(163, 1, 191, 1) 44%,
-    rgba(217, 8, 170, 1) 57%
-  );
+  background: linear-gradient(135deg, rgba(163, 1, 191, 1) 44%, rgba(217, 8, 170, 1) 57%);
 }
 
 .--list-style-none {

@@ -177,21 +177,21 @@ p {
 
 /* Text Color */
 .--text-light {
-  color: #fff;
+  color: var(--color-white);
 }
 
 .--color-primary {
   color: #007bff;
 }
 .--color-danger {
-  color: orangered;
+  color: #ff4500;
 }
 .--color-success {
   color: #28a745;
 }
 
 .--color-white {
-  color: #fff;
+  color: var(--color-white);
 }
 
 /* Center Text */
@@ -299,27 +299,27 @@ p {
 }
 
 .--btn-primary {
-  color: #fff;
+  color: var(--color-white);
   background: #007bff;
 }
 .--btn-secondary {
-  color: #fff;
-  border: 1px solid #fff;
+  color: var(--color-white);
+  border: 1px solid var(--color-white);
   background: transparent;
 }
 .--btn-danger {
-  color: #fff;
-  background: orangered;
+  color: var(--color-white);
+  background: #ff4500;
 }
 
 .--btn-success {
-  color: #fff;
+  color: var(--color-white);
   background: #28a745;
 }
 
 /* Background */
 .--bg-light {
-  background: #fff;
+  background: var(--color-white);
 }
 .--bg-dark {
   background: var(--color-dark);

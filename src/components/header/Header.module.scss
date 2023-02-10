@@ -68,7 +68,7 @@ header {
         color: var(--dark-orange);
       }
       &.active {
-        color: var(--color-danger);
+        color: var(--dark-orange);
       }
       p {
         position: absolute;
@@ -93,7 +93,7 @@ header {
         color: var(--dark-orange);
       }
       &.active {
-        color: var(--color-danger);
+        color: var(--dark-orange);
       }
     }
   }
@@ -199,4 +199,19 @@ header {
       }
     }
   }
+}
+
+.active {
+  position: relative;
+  color: var(--dark-orange);
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-white);
 }

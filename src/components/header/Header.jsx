@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { FaShoppingCart, FaTimes } from 'react-icons/fa';
 import { AiOutlineBars } from 'react-icons/ai';
@@ -16,15 +16,18 @@ const logo = (
   </div>
 );
 
+const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : '');
+
 const cart = (
   <span className={styles.cart}>
-    <Link to='/cart'>
+    <NavLink to='/cart' className={activeLink}>
       Carrinho
       <FaShoppingCart size={20} />
       <p>0</p>
-    </Link>
+    </NavLink>
   </span>
 );
+
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -56,17 +59,27 @@ const Header = () => {
               <FaTimes size={30} onClick={hideMenu} />
             </li>
             <li>
-              <Link to='/'>Home</Link>
+              <NavLink to='/' className={activeLink}>
+                Home
+              </NavLink>
             </li>
             <li>
-              <Link to='/contact'>Contato</Link>
+              <NavLink to='/contact' className={activeLink}>
+                Contato
+              </NavLink>
             </li>
           </ul>
           <div className={styles['header-right']} onClick={hideMenu}>
             <span className={styles.links}>
-              <Link to='/login'>Login</Link>
-              <Link to='/register'>Registrar</Link>
-              <Link to='/order-history'>Meus Pedidos</Link>
+              <NavLink to='/login' className={activeLink}>
+                Login
+              </NavLink>
+              <NavLink to='/register' className={activeLink}>
+                Registrar
+              </NavLink>
+              <NavLink to='/order-history' className={activeLink}>
+                Meus Pedidos
+              </NavLink>
             </span>
             {cart}
           </div>

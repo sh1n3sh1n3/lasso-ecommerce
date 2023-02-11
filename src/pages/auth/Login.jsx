@@ -30,7 +30,7 @@ const Login = () => {
           </button>
           <span className={styles.register}>
             <p>Não tem uma conta?</p>
-            <Link to='/register'>Criar conta</Link>
+            <Link className={styles['account-link']} to='/register'>Criar conta</Link>
           </span>
         </div>
       </Card>

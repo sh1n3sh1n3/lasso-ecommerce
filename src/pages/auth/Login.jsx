@@ -19,18 +19,19 @@ const Login = () => {
             <input type='password' placeholder='Senha' />
             <button className='--btn --btn-primary --btn-block'>Login</button>
             <div className={styles.links}>
-              <Link to='/reset'>Esqueceu a senha?</Link>
+              <Link to='/reset-password'>Esqueceu a senha?</Link>
             </div>
             <p>-- ou --</p>
           </form>
-
           <button className='--btn --btn-danger --btn-block'>
             <FaGoogle className={styles.icon} size={15} />
             Entrar com o Gmail
           </button>
           <span className={styles.register}>
             <p>Não tem uma conta?</p>
-            <Link className={styles['account-link']} to='/register'>Criar conta</Link>
+            <Link className={styles['account-link']} to='/register'>
+              Criar conta
+            </Link>
           </span>
         </div>
       </Card>

@@ -44,6 +44,9 @@ const Register = () => {
           if (e.code === 'auth/weak-password') {
             toast.warning('A senha precisa ter pelo menos 6 caracteres.');
           }
+          if (e.code === 'auth/internal-error') {
+            toast.error('Preencha todos os campos corretamente.');
+          }
           setLoading(false);
         });
     }

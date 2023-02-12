@@ -23,9 +23,7 @@ const Register = () => {
   const registerUser = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error('As senhas não conferem!', {
-        position: 'top-right',
-      });
+      toast.error('As senhas não conferem!');
     } else {
       setLoading(true);
       createUserWithEmailAndPassword(auth, email, password)
@@ -33,9 +31,7 @@ const Register = () => {
           const user = userCredential.user;
           console.log(user);
           setLoading(false);
-          toast.success('Conta criada com sucesso!', {
-            position: 'top-right',
-          });
+          toast.success('Conta criada com sucesso!');
           navigate('/login');
         })
         .catch((e) => {

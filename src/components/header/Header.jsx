@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase/config';
 
 import { FaShoppingCart, FaTimes } from 'react-icons/fa';
 import { AiOutlineBars } from 'react-icons/ai';
@@ -28,9 +32,10 @@ const cart = (
   </span>
 );
 
-
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -38,6 +43,17 @@ const Header = () => {
 
   const hideMenu = () => {
     setShowMenu(false);
+  };
+
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        toast.success('Logout efetuado com sucesso.');
+        navigate('/');
+      })
+      .catch((e) => {
+        toast.error('Erro. Tente novamente mais tarde.');
+      });
   };
 
   return (
@@ -51,8 +67,7 @@ const Header = () => {
                 ? `${styles['nav-wrapper']} ${styles['show-nav-wrapper']}`
                 : `${styles['nav-wrapper']}`
             }
-            onClick={hideMenu}
-          ></div>
+            onClick={hideMenu}></div>
           <ul onClick={hideMenu}>
             <li className={styles['logo-mobile']}>
               {logo}
@@ -79,6 +94,9 @@ const Header = () => {
               </NavLink>
               <NavLink to='/order-history' className={activeLink}>
                 Meus Pedidos
+              </NavLink>
+              <NavLink to='/' onClick={logout}>
+                Sair
               </NavLink>
             </span>
             {cart}

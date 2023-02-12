@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 
 import Card from '../../components/card/Card';
@@ -21,6 +21,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  // Email login
   const loginUser = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -47,6 +48,19 @@ const Login = () => {
           toast.warning('A senha de login precisa conter no minimo 6 caracteres.');
         }
         setLoading(false);
+      });
+  };
+
+  // Gmail login
+  const provider = new GoogleAuthProvider();
+  const gmailLogin = () => {
+    signInWithPopup(auth, provider)
+      .then(() => {
+        toast.success('Login efetuado com sucesso!');
+        navigate('/');
+      })
+      .catch((e) => {
+        toast.error('Não foi possível conactar a sua conta Google.');
       });
   };
 
@@ -77,7 +91,7 @@ const Login = () => {
             </div>
             <p>-- ou --</p>
           </form>
-          <button className='--btn --btn-danger --btn-block'>
+          <button className='--btn --btn-danger --btn-block' onClick={gmailLogin}>
             <FaGoogle className={styles.icon} size={15} />
             Entrar com o Gmail
           </button>

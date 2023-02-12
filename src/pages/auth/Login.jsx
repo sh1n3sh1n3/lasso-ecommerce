@@ -15,7 +15,7 @@ const Login = () => {
         <div className={styles.form}>
           <h2>Login</h2>
           <form action=''>
-            <input type='text' placeholder='Endereço de Email' />
+            <input type='text' placeholder='Endereço de Email' autoFocus />
             <input type='password' placeholder='Senha' />
             <button className='--btn --btn-primary --btn-block'>Login</button>
             <div className={styles.links}>

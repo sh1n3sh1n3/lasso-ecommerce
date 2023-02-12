@@ -17,7 +17,7 @@ const Reset = () => {
           <h2>Esqueceu a senha?</h2>
           <p>Digite o endereço de Email da sua conta e receba um link para criar uma nova senha.</p>
           <form action=''>
-            <input type='text' placeholder='Endereço de Email' />
+            <input type='text' placeholder='Endereço de Email' autoFocus />
             <button className='--btn --btn-primary --btn-block'>Receber link</button>
             <div className={styles.links}>
               <p>

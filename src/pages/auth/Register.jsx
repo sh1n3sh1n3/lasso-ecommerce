@@ -68,6 +68,7 @@ const Register = () => {
               placeholder='Endereço de Email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoFocus
             />
             <input
               type='password'

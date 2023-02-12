@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Pages
@@ -7,10 +9,12 @@ import { Home, Contact, Login, Register, Reset } from './pages';
 import { Header, Footer } from './components';
 
 import './theme.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 function App() {
   return (
     <>
+      <ToastContainer limit={2} />
       <BrowserRouter>
         <Header />
         <Routes>

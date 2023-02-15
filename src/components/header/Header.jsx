@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { signOut } from 'firebase/auth';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 
-import { FaShoppingCart, FaTimes } from 'react-icons/fa';
+import { FaShoppingCart, FaTimes, FaUserCircle } from 'react-icons/fa';
 import { AiOutlineBars } from 'react-icons/ai';
+
+import { useDispatch } from 'react-redux';
+import { setActiveUser } from '../../redux/slices/authSlice';
 
 import styles from './Header.module.scss';
 
@@ -34,8 +37,33 @@ const cart = (
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [currentUser, setCurrentUser] = useState('');
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        if (user.displayName !== null) {
+          setCurrentUser(user.displayName);
+          dispatch(
+            setActiveUser({
+              email: user.email,
+              userName: user.displayName ? user.displayName : currentUser,
+              userId: user.uid,
+            }),
+          );
+        } else {
+          const sliceUser = user.email.split('@');
+          const setName = sliceUser[0];
+          setCurrentUser(setName);
+        }
+      } else {
+        setCurrentUser('');
+      }
+    });
+  }, [dispatch, currentUser]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -89,6 +117,10 @@ const Header = () => {
               <NavLink to='/login' className={activeLink}>
                 Login
               </NavLink>
+              <a href='#'>
+                <FaUserCircle size={18} />
+                <span>{currentUser}</span>
+              </a>
               <NavLink to='/register' className={activeLink}>
                 Registrar
               </NavLink>

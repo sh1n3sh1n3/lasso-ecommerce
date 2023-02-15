@@ -9,7 +9,7 @@ import { FaShoppingCart, FaTimes, FaUserCircle } from 'react-icons/fa';
 import { AiOutlineBars } from 'react-icons/ai';
 
 import { useDispatch } from 'react-redux';
-import { setActiveUser } from '../../redux/slices/authSlice';
+import { setActiveUser, removeActiveUser } from '../../redux/slices/authSlice';
 
 import styles from './Header.module.scss';
 
@@ -61,6 +61,7 @@ const Header = () => {
         }
       } else {
         setCurrentUser('');
+        dispatch(removeActiveUser());
       }
     });
   }, [dispatch, currentUser]);

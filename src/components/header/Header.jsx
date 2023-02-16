@@ -11,6 +11,8 @@ import { AiOutlineBars } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { setActiveUser, removeActiveUser } from '../../redux/slices/authSlice';
 
+import { DisplayOnLogin, DisplayOnLogout } from '../linksLogic/LinksLogic';
+
 import styles from './Header.module.scss';
 
 const logo = (
@@ -114,24 +116,29 @@ const Header = () => {
             </li>
           </ul>
           <div className={styles['header-right']} onClick={hideMenu}>
-            <span className={styles.links}>
-              <NavLink to='/login' className={activeLink}>
-                Login
-              </NavLink>
-              <a href='#'>
-                <FaUserCircle size={18} />
-                <span>{currentUser}</span>
-              </a>
-              <NavLink to='/register' className={activeLink}>
-                Registrar
-              </NavLink>
-              <NavLink to='/order-history' className={activeLink}>
-                Meus Pedidos
-              </NavLink>
-              <NavLink to='/' onClick={logout}>
-                Sair
-              </NavLink>
-            </span>
+            <nav className={styles.links}>
+              <DisplayOnLogout>
+                <NavLink to='/login' className={activeLink}>
+                  Login
+                </NavLink>
+              </DisplayOnLogout>
+              <DisplayOnLogin>
+                <a href='#user' className={styles['user']}>
+                  <FaUserCircle size={18} />
+                  <span>{currentUser}</span>
+                </a>
+              </DisplayOnLogin>
+              <DisplayOnLogin>
+                <NavLink to='/order-history' className={activeLink}>
+                  Meus Pedidos
+                </NavLink>
+              </DisplayOnLogin>
+              <DisplayOnLogin>
+                <NavLink to='/' onClick={logout}>
+                  Sair
+                </NavLink>
+              </DisplayOnLogin>
+            </nav>
             {cart}
           </div>
         </nav>

@@ -199,6 +199,14 @@ header {
       }
     }
   }
+  .user {
+    display: flex;
+    align-items: center;
+
+    span {
+      color: var(--dark-orange);
+    }
+  }
 }
 
 .active {

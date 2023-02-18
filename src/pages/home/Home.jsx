@@ -1,7 +1,8 @@
 import styles from './Home.module.scss';
+import Carousel from '../../components/carousel/Carousel';
 
 const Home = () => {
-  return <div>Home</div>;
+  return <Carousel></Carousel>;
 };
 
 export default Home;

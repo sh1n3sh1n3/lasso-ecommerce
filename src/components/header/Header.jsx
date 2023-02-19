@@ -47,20 +47,20 @@ const Header = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        if (user.displayName !== null) {
-          setCurrentUser(user.displayName);
-          dispatch(
-            setActiveUser({
-              email: user.email,
-              userName: user.displayName ? user.displayName : currentUser,
-              userId: user.uid,
-            }),
-          );
-        } else {
+        if (user.displayName == null) {
           const sliceUser = user.email.split('@');
           const setName = sliceUser[0];
           setCurrentUser(setName);
+        } else {
+          setCurrentUser(user.displayName);
         }
+        dispatch(
+          setActiveUser({
+            email: user.email,
+            userName: user.displayName ? user.displayName : currentUser,
+            userId: user.uid,
+          }),
+        );
       } else {
         setCurrentUser('');
         dispatch(removeActiveUser());
@@ -91,7 +91,7 @@ const Header = () => {
     <header>
       <div className={styles.header}>
         {logo}
-        <nav className={showMenu ? `${styles['show-nav']}` : `${styles['hide-menu']}`}>
+        <nav className={showMenu ? `${styles['show-nav']}` : `${styles['hide-nav']}`}>
           <div
             className={
               showMenu
@@ -116,7 +116,7 @@ const Header = () => {
             </li>
           </ul>
           <div className={styles['header-right']} onClick={hideMenu}>
-            <nav className={styles.links}>
+            <span className={styles.links}>
               <DisplayOnLogout>
                 <NavLink to='/login' className={activeLink}>
                   Login
@@ -130,7 +130,7 @@ const Header = () => {
               </DisplayOnLogin>
               <DisplayOnLogin>
                 <NavLink to='/order-history' className={activeLink}>
-                  Meus Pedidos
+                  Pedidos
                 </NavLink>
               </DisplayOnLogin>
               <DisplayOnLogin>
@@ -138,7 +138,7 @@ const Header = () => {
                   Sair
                 </NavLink>
               </DisplayOnLogin>
-            </nav>
+            </span>
             {cart}
           </div>
         </nav>

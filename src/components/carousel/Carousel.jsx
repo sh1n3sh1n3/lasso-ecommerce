@@ -11,10 +11,10 @@ function Carousel() {
   const imgLength = imgData.length;
 
   const nextImg = () => {
-    setCurrentImg(currentImg === imgLength -1 ? 0 : currentImg + 1)
+    setCurrentImg(currentImg === imgLength - 1 ? 0 : currentImg + 1);
   };
   const prevImg = () => {
-    setCurrentImg(currentImg === 0 ?  imgLength -1 : currentImg - 1);
+    setCurrentImg(currentImg === 0 ? imgLength - 1 : currentImg - 1);
   };
 
   return (

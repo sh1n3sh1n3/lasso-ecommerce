@@ -3,10 +3,10 @@ import { ToastContainer } from 'react-toastify';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Pages
-import { Home, Contact, Login, Register, Reset } from './pages';
+import { Home, Contact, Login, Register, Reset, Admin } from './pages';
 
 // Components
-import { Header, Footer } from './components';
+import { Header, Footer, UseAdminRoute } from './components';
 
 import './theme.css';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -23,6 +23,15 @@ function App() {
           <Route path='/login' element={<Login />} />;
           <Route path='/register' element={<Register />} />;
           <Route path='/reset-password' element={<Reset />} />;
+          <Route
+            path='/admin/*'
+            element={
+              <UseAdminRoute>
+                <Admin />
+              </UseAdminRoute>
+            }
+          />
+          ;
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { setActiveUser, removeActiveUser } from '../../redux/slices/authSlice';
 
 import { DisplayOnLogin, DisplayOnLogout } from '../linksLogic/LinksLogic';
-import UseAdminRoute from '../adminRoute/AdminRoute';
+import { UseAdminRoute } from '../index';
 
 import styles from './Header.module.scss';
 

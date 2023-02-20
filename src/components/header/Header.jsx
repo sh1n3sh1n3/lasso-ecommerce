@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { setActiveUser, removeActiveUser } from '../../redux/slices/authSlice';
 
 import { DisplayOnLogin, DisplayOnLogout } from '../linksLogic/LinksLogic';
+import UseAdminRoute from '../adminRoute/AdminRoute';
 
 import styles from './Header.module.scss';
 
@@ -104,6 +105,11 @@ const Header = () => {
               {logo}
               <FaTimes size={30} onClick={hideMenu} />
             </li>
+            <UseAdminRoute>
+              <li>
+                <button className='--btn --btn-primary'>Admin</button>
+              </li>
+            </UseAdminRoute>
             <li>
               <NavLink to='/' className={activeLink}>
                 Home

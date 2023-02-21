@@ -8,7 +8,7 @@ import {
   AdminOrders,
 } from '../../components/index';
 
-import styles from './Admin.module.scs s';
+import styles from './Admin.module.scss';
 
 const Admin = () => {
   return (
@@ -21,7 +21,6 @@ const Admin = () => {
           <Route path='home' element={<AdminHome />}></Route>
           <Route path='view-all-products' element={<AdminViewProducts />}></Route>
           <Route path='add-product' element={<AdminAddProduct />}></Route>
-          <Route path='home' element={<AdminHome />}></Route>
           <Route path='orders' element={<AdminOrders />}></Route>
         </Routes>
       </div>

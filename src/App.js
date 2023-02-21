@@ -6,7 +6,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, Contact, Login, Register, Reset, Admin } from './pages';
 
 // Components
-import { Header, Footer, UseAdminRoute } from './components';
+import { Header, Footer } from './components';
+import { UseAdminRoute } from './components/adminRoute/AdminRoute';
 
 import './theme.css';
 import 'react-toastify/dist/ReactToastify.min.css';

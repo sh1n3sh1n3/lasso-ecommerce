@@ -1,0 +1,48 @@
+.navbar {
+  border-right: 1px solid var(--color-grey);
+  min-height: 80vh;
+
+  .user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 4rem;
+    background-color: var(--secondary-blue);
+
+    h2 {
+      color: var(--color-white);
+    }
+
+    h4 {
+      margin-top: 20px;
+      color: var(--color-white);
+    }
+  }
+
+  nav ul {
+    li {
+      border-bottom: 1px solid var(--color-grey);
+      padding: 1rem;
+      position: relative;
+      a {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.active {
+  cursor: pointer;
+}
+
+.active::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--dark-orange);
+}

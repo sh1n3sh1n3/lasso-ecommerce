@@ -7,6 +7,7 @@ import { db, storage } from '../../../firebase/config';
 import Spinner from '../../spinner/Spinner';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import Notiflix from 'notiflix';
 
 import styles from './AdminViewProducts.module.scss';
 import { deleteObject, ref } from 'firebase/storage';
@@ -36,6 +37,28 @@ const AdminViewProducts = () => {
       setLoading(false);
       toast.error('Não foi possível exibir os produtos.');
     }
+  };
+
+  const confirmProductDeletion = (id, imgUrl) => {
+    Notiflix.Confirm.show(
+      'Remover produto!',
+      'Tem certeza que quer remover esse produto da lista?',
+      'Remover',
+      'Cancelar',
+      function okCb() {
+        deleteProduct(id, imgUrl);
+      },
+      function cancelCb() {
+        return;
+      },
+      {
+        width: '300px',
+        borderRadius: '2px',
+        titleColor: '#f56600',
+        okButtonBackground: '#f56600',
+        cssAnimationStyle: 'zoom',
+      },
+    );
   };
 
   const deleteProduct = async (id, imgUrl) => {
@@ -89,7 +112,7 @@ const AdminViewProducts = () => {
                     <FaTrashAlt
                       size={18}
                       style={{ color: 'var(--color-danger)' }}
-                      onClick={() => deleteProduct(id, imgUrl)}
+                      onClick={() => confirmProductDeletion(id, imgUrl)}
                     />
                   </td>
                 </tr>

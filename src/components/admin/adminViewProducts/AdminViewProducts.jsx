@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { collection, query, onSnapshot, orderBy, deleteDoc, doc } from 'firebase/firestore';
 import { db, storage } from '../../../firebase/config';
+import { deleteObject, ref } from 'firebase/storage';
+import { storeProducts } from '../../../redux/slices/productSlice';
 
 import Spinner from '../../spinner/Spinner';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
@@ -10,11 +13,12 @@ import { toast } from 'react-toastify';
 import Notiflix from 'notiflix';
 
 import styles from './AdminViewProducts.module.scss';
-import { deleteObject, ref } from 'firebase/storage';
 
 const AdminViewProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getProducts();
@@ -32,6 +36,11 @@ const AdminViewProducts = () => {
         }));
         setProducts(allProducts);
         setLoading(false);
+        dispatch(
+          storeProducts({
+            products: allProducts,
+          }),
+        );
       });
     } catch (e) {
       setLoading(false);
@@ -96,8 +105,8 @@ const AdminViewProducts = () => {
             const { id, name, price, imgUrl, category } = product;
 
             return (
-              <tbody>
-                <tr key={id}>
+              <tbody key={id}>
+                <tr>
                   <td>{i + 1}</td>
                   <td>
                     <img src={imgUrl} alt={name} style={{ width: '100px' }} />

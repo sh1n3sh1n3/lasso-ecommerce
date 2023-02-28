@@ -20,7 +20,7 @@ const Admin = () => {
         <Routes>
           <Route path='home' element={<AdminHome />}></Route>
           <Route path='view-all-products' element={<AdminViewProducts />}></Route>
-          <Route path='add-product' element={<AdminAddProduct />}></Route>
+          <Route path='add-product/:id' element={<AdminAddProduct />}></Route>
           <Route path='orders' element={<AdminOrders />}></Route>
         </Routes>
       </div>

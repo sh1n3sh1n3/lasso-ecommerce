@@ -115,7 +115,7 @@ const AdminViewProducts = () => {
                   <td>{category}</td>
                   <td>{`R$${price},00`}</td>
                   <td className={styles.icons}>
-                    <Link to='/admin/add-product'>
+                    <Link to={`/admin/add-product/${id}`}>
                       <FaEdit size={20} style={{ color: 'var(--color-success)' }} />
                     </Link>
                     <FaTrashAlt

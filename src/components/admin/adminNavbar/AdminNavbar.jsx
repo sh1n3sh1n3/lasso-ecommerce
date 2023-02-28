@@ -29,7 +29,7 @@ const AdminNavbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className={activeLink} to='/admin/add-product'>
+            <NavLink className={activeLink} to='/admin/add-product/new'>
               Adicionar Produto
             </NavLink>
           </li>

@@ -1,8 +1,12 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { storage, db } from '../../../firebase/config';
+
+import { selectProducts } from '../../../redux/slices/productSlice';
 
 import { toast } from 'react-toastify';
 
@@ -29,14 +33,37 @@ const categories = [
   },
 ];
 
+const emptyProductState = {
+  name: '',
+  imgUrl: '',
+  price: 0,
+  category: '',
+  brand: '',
+  desc: '',
+};
+
 const AdminAddProduct = () => {
-  const [product, setProduct] = useState({
-    name: '',
-    imgUrl: '',
-    price: 0,
-    category: '',
-    brand: '',
-    desc: '',
+  const { id } = useParams();
+
+  const identifyFormType = (id, optionOne, optionTwo) => {
+    if (id === 'new') {
+      return optionOne;
+    }
+    return optionTwo;
+  };
+
+  const products = useSelector(selectProducts);
+  const productModify = products.find((foundProduct) => foundProduct.id === id);
+
+  const [product, setProduct] = useState(() => {
+    const customState = identifyFormType(
+      id,
+      {
+        ...emptyProductState,
+      },
+      productModify,
+    );
+    return customState;
   });
   const [imgUploadProgress, setImgUploadProgress] = useState(0);
 
@@ -88,15 +115,24 @@ const AdminAddProduct = () => {
       setProduct({ name: '', imgUrl: '', price: 0, category: '', brand: '', desc: '' });
       toast.success('Produto adicionado!');
     } catch (e) {
-      toast.error('Não foi possível adicionar o produto.');
+      toast.error('Erro. Não foi possível adicionar o produto.');
+    }
+  };
+
+  const modifyProduct = (e) => {
+    e.preventDefault();
+
+    try {
+    } catch (e) {
+      toast.error('Erro. Não foi possível modificar o produto.');
     }
   };
 
   return (
     <div className={styles.container}>
-      <h1>Adicionar um produto</h1>
+      <h2>{identifyFormType(id, 'Adicionar um produto', 'Modificar produto')}</h2>
       <Card cardClass={styles.card}>
-        <form onSubmit={addProduct}>
+        <form onSubmit={identifyFormType(id, addProduct, modifyProduct)}>
           <label>Nome do produto:</label>
           <input
             type='text'
@@ -178,7 +214,9 @@ const AdminAddProduct = () => {
             rows='10'
             required
             onChange={(e) => handleInputChange(e)}></textarea>
-          <button className='--btn --btn-primary'>Adicionar produto</button>
+          <button className='--btn --btn-primary'>
+            {identifyFormType(id, 'Adicionar produto', 'Atualizar produto')}
+          </button>
         </form>
       </Card>
     </div>

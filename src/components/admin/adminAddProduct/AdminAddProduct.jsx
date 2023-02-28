@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
+import { collection, addDoc, Timestamp, doc, setDoc } from 'firebase/firestore';
 import { storage, db } from '../../../firebase/config';
 
 import { selectProducts } from '../../../redux/slices/productSlice';
@@ -44,6 +44,7 @@ const emptyProductState = {
 
 const AdminAddProduct = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const identifyFormType = (id, optionOne, optionTwo) => {
     if (id === 'new') {
@@ -61,7 +62,7 @@ const AdminAddProduct = () => {
       {
         ...emptyProductState,
       },
-      productModify,
+      productModify
     );
     return customState;
   });
@@ -94,7 +95,7 @@ const AdminAddProduct = () => {
           });
           toast.success('Imagem adicionada com sucesso.');
         });
-      },
+      }
     );
   };
 
@@ -114,6 +115,7 @@ const AdminAddProduct = () => {
       setImgUploadProgress(0);
       setProduct({ name: '', imgUrl: '', price: 0, category: '', brand: '', desc: '' });
       toast.success('Produto adicionado!');
+      navigate('/admin/view-all-products');
     } catch (e) {
       toast.error('Erro. Não foi possível adicionar o produto.');
     }
@@ -122,7 +124,24 @@ const AdminAddProduct = () => {
   const modifyProduct = (e) => {
     e.preventDefault();
 
+    if(product.imgUrl !== productModify.imgUrl) {
+        const imageRef = ref(storage, productModify.imgUrl);
+        deleteObject(imageRef);
+    };
+    
     try {
+      setDoc(doc(db, 'products', id), {
+        name: product.name,
+        imgUrl: product.imgUrl,
+        price: Number(product.price),
+        category: product.category,
+        brand: product.brand,
+        desc: product.desc,
+        uploadTime: productModify.uploadTime,
+        modifiedTime: Timestamp.now().toDate(),
+      });
+      toast.success('Produto modificado com sucesso!');
+      navigate('/admin/view-all-products');
     } catch (e) {
       toast.error('Erro. Não foi possível modificar o produto.');
     }
@@ -185,7 +204,8 @@ const AdminAddProduct = () => {
             name='category'
             value={product.category}
             required
-            onChange={(e) => handleInputChange(e)}>
+            onChange={(e) => handleInputChange(e)}
+          >
             <option value='' disabled>
               Escolha uma categoria
             </option>
@@ -213,7 +233,8 @@ const AdminAddProduct = () => {
             cols='30'
             rows='10'
             required
-            onChange={(e) => handleInputChange(e)}></textarea>
+            onChange={(e) => handleInputChange(e)}
+          ></textarea>
           <button className='--btn --btn-primary'>
             {identifyFormType(id, 'Adicionar produto', 'Atualizar produto')}
           </button>

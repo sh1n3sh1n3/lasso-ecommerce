@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { collection, query, onSnapshot, orderBy, deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import { db, storage } from '../../../firebase/config';
 import { deleteObject, ref } from 'firebase/storage';
-import { storeProducts } from '../../../redux/slices/productSlice';
+
+import { selectProducts, storeProducts } from '../../../redux/slices/productSlice';
+import useFetchCollection from '../../../customHooks/useFetchCollection';
 
 import Spinner from '../../spinner/Spinner';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
@@ -15,38 +17,17 @@ import Notiflix from 'notiflix';
 import styles from './AdminViewProducts.module.scss';
 
 const AdminViewProducts = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-
+  const { data, loading } = useFetchCollection('products');
+  const products = useSelector(selectProducts);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getProducts();
-  }, []);
-
-  const getProducts = () => {
-    setLoading(true);
-    try {
-      const productsRef = collection(db, 'products');
-      const q = query(productsRef, orderBy('uploadTime', 'desc'));
-      onSnapshot(q, (snapshot) => {
-        const allProducts = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setProducts(allProducts);
-        setLoading(false);
-        dispatch(
-          storeProducts({
-            products: allProducts,
-          }),
-        );
-      });
-    } catch (e) {
-      setLoading(false);
-      toast.error('Não foi possível exibir os produtos.');
-    }
-  };
+    dispatch(
+      storeProducts({
+        products: data,
+      }),
+    );
+  }, [dispatch, data]);
 
   const confirmProductDeletion = (id, imgUrl) => {
     Notiflix.Confirm.show(

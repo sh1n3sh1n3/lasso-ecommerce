@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, Contact, Login, Register, Reset, Admin } from './pages';
 
 // Components
-import { Header, Footer } from './components';
+import { Header, Footer, ProductDetails } from './components';
 import { UseAdminRoute } from './components/adminRoute/AdminRoute';
 
 import './theme.css';
@@ -32,7 +32,7 @@ function App() {
               </UseAdminRoute>
             }
           />
-          ;
+          <Route path='/product-details/:id' element={<ProductDetails />} />;
         </Routes>
         <Footer />
       </BrowserRouter>

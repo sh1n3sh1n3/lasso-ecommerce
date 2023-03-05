@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectProducts, storeProducts } from '../../redux/slices/productSlice';
+import {
+  selectProducts,
+  storeProducts,
+  getProductPriceRange,
+} from '../../redux/slices/productSlice';
 import useFetchCollection from '../../customHooks/useFetchCollection';
 
 import { ProductsFilter, ProductsList, Spinner } from '../index';
@@ -19,6 +23,7 @@ const Product = () => {
         products: data,
       }),
     );
+    dispatch(getProductPriceRange({ products: data }));
   }, [dispatch, data]);
 
   return (

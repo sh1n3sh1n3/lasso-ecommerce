@@ -1,0 +1,70 @@
+.container {
+  padding: 0 5%;
+  .return-link {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    color: var(--dark-orange);
+    font-weight: bold;
+  }
+  .card {
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .review {
+    border-top: 1px solid var(--secondary-blue);
+  }
+  .details {
+    padding-top: 2rem;
+    display: flex;
+
+    .img {
+      margin-right: 50px;
+      width: 45%;
+      padding: 5%;
+      border: 1px solid var(--secondary-blue);
+      border-radius: 3px;
+      img {
+        width: 100%;
+      }
+    }
+
+    .content {
+      width: 55%;
+      padding: 0 5px;
+      & > * {
+        margin-bottom: 1rem;
+      }
+      .price {
+        color: var(--dark-orange);
+        font-weight: 500;
+      }
+
+      .count {
+        display: flex;
+        align-items: center;
+        & > * {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .container {
+    .details {
+      flex-direction: column;
+
+      .img {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 50px;
+      }
+
+      .content {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -58,8 +58,9 @@ const filterSlice = createSlice({
       if (category === 'Todos') {
         categoryFilteredProducts = products;
       } else {
-        categoryFilteredProducts = products.filter((product) => (product.category = category));
+        categoryFilteredProducts = products.filter((product) => product.category === category);
       }
+      state.filteredProducts = categoryFilteredProducts;
     },
   },
 });

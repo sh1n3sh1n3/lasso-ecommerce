@@ -52,10 +52,20 @@ const filterSlice = createSlice({
 
       state.filteredProducts = sortedProducts;
     },
+    filterProductsByCategory(state, action) {
+      const { products, category } = action.payload;
+      let categoryFilteredProducts = [];
+      if (category === 'Todos') {
+        categoryFilteredProducts = products;
+      } else {
+        categoryFilteredProducts = products.filter((product) => (product.category = category));
+      }
+    },
   },
 });
 
-export const { filterProductsBySearch, sortProducts } = filterSlice.actions;
+export const { filterProductsBySearch, sortProducts, filterProductsByCategory } =
+  filterSlice.actions;
 export const selectFilteredProducts = (state) => state.filter.filteredProducts;
 
 export default filterSlice.reducer;

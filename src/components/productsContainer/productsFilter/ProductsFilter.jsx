@@ -21,7 +21,7 @@ const ProductFilter = () => {
 
   const filterProducts = (cat) => {
     setCategory(cat);
-    dispatch(filterProductsByCategory({ products, cat: category }));
+    dispatch(filterProductsByCategory({ products, category: cat }));
   };
 
   return (

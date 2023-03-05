@@ -62,11 +62,25 @@ const filterSlice = createSlice({
       }
       state.filteredProducts = categoryFilteredProducts;
     },
+    filterProductsByBrand(state, action) {
+      const { products, brand } = action.payload;
+      let brandFilteredProducts = [];
+      if (brand === 'Todos') {
+        brandFilteredProducts = products;
+      } else {
+        brandFilteredProducts = products.filter((product) => product.brand === brand);
+      }
+      state.filteredProducts = brandFilteredProducts;
+    },
   },
 });
 
-export const { filterProductsBySearch, sortProducts, filterProductsByCategory } =
-  filterSlice.actions;
+export const {
+  filterProductsBySearch,
+  sortProducts,
+  filterProductsByCategory,
+  filterProductsByBrand,
+} = filterSlice.actions;
 export const selectFilteredProducts = (state) => state.filter.filteredProducts;
 
 export default filterSlice.reducer;

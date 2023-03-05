@@ -1,23 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  filterProductsBySearch,
   filterProductsByCategory,
+  filterProductsByBrand,
+  filterProductsByPrice,
 } from '../../../redux/slices/filterSlice';
 
 import { AiOutlineDoubleRight } from 'react-icons/ai';
 
-import { selectProducts } from '../../../redux/slices/productSlice';
+import { selectMaxPrice, selectMinPrice, selectProducts } from '../../../redux/slices/productSlice';
 
 import styles from './ProductsFilter.module.scss';
 
 const ProductFilter = () => {
   const [category, setCategory] = useState('Todos');
+  const [brand, setBrand] = useState('Todos');
+  const [price, setPrice] = useState(3000);
   const products = useSelector(selectProducts);
+  const minPrice = useSelector(selectMinPrice);
+  const maxPrice = useSelector(selectMaxPrice);
 
   const dispatch = useDispatch();
 
   const allProductsCategories = ['Todos', ...new Set(products.map((product) => product.category))];
+  const allProductsBrands = ['Todos', ...new Set(products.map((product) => product.brand))];
+
+  useEffect(() => {
+    dispatch(filterProductsByBrand({ products, brand }));
+  }, [dispatch, products, brand]);
+
+  useEffect(() => {
+    dispatch(filterProductsByPrice({ products, price }));
+  }, [dispatch, products, price]);
 
   const filterProducts = (cat) => {
     setCategory(cat);
@@ -42,13 +56,25 @@ const ProductFilter = () => {
       </div>
       <h4>Marca/Empresa</h4>
       <div className={styles.brand}>
-        <select name='brand'>
-          <option value='Todos'></option>
+        <select value={brand} onChange={(e) => setBrand(e.target.value)}>
+          {allProductsBrands.map((brand, index) => {
+            return (
+              <option key={index} value={brand}>
+                {brand}
+              </option>
+            );
+          })}
         </select>
         <h4>Preço até</h4>
-        <p>1500</p>
+        <p>{`R$:${price},00`}</p>
         <div className={styles.price}>
-          <input type='range' name='price' min='10' max='5000' />
+          <input
+            type='range'
+            min={minPrice}
+            max={maxPrice}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
         </div>
         <button className='--btn --btn-danger'>Limpar Filtros</button>
       </div>

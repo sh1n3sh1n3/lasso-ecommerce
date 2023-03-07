@@ -18,7 +18,7 @@ const ProductList = ({ products }) => {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('latest');
   const [currentProductPage, setCurrentProductPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(6);
   const dispatch = useDispatch();
   const filteredProducts = useSelector(selectFilteredProducts);
   const indexOfLastProduct = currentProductPage * productsPerPage;
@@ -64,7 +64,7 @@ const ProductList = ({ products }) => {
           </p>
         ) : (
           <>
-            {filteredProducts.map((product) => {
+            {currentProducts.map((product) => {
               return (
                 <div key={product.id}>
                   <ProductItem {...product} grid={grid} product={product} />

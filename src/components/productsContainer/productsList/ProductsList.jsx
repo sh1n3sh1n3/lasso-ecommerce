@@ -18,7 +18,7 @@ const ProductList = ({ products }) => {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('latest');
   const [currentProductPage, setCurrentProductPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(6);
+  const [productsPerPage, setProductsPerPage] = useState(9);
   const dispatch = useDispatch();
   const filteredProducts = useSelector(selectFilteredProducts);
   const indexOfLastProduct = currentProductPage * productsPerPage;

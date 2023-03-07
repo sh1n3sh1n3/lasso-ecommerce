@@ -9,15 +9,21 @@ import {
 
 import { BsFillGridFill } from 'react-icons/bs';
 import { FaListAlt } from 'react-icons/fa';
-import { ProductItem, SearchBar } from '../../index';
+import { ProductItem, SearchBar, ProductsPagination } from '../../index';
+
 import styles from './ProductsList.module.scss';
 
 const ProductList = ({ products }) => {
   const [grid, setGrid] = useState(true);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('latest');
+  const [currentProductPage, setCurrentProductPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(1);
   const dispatch = useDispatch();
   const filteredProducts = useSelector(selectFilteredProducts);
+  const indexOfLastProduct = currentProductPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   useEffect(() => {
     dispatch(sortProducts({ products, sort }));
@@ -68,6 +74,12 @@ const ProductList = ({ products }) => {
           </>
         )}
       </div>
+      <ProductsPagination
+        productsPerPage={productsPerPage}
+        currentProductPage={currentProductPage}
+        setCurrentProductPage={setCurrentProductPage}
+        totalNumberOfProducts={filteredProducts.length}
+      />
     </div>
   );
 };

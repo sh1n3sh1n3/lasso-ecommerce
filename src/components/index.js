@@ -16,3 +16,4 @@ export { default as ProductsFilter } from './productsContainer/productsFilter/Pr
 export { default as ProductItem } from './productsContainer/productItem/ProductItem';
 export { default as ProductsList } from './productsContainer/productsList/ProductsList';
 export { default as SearchBar } from './searchBar/SearchBar';
+export { default as ProductsPagination } from './productsPagination/ProductsPagination';

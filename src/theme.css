@@ -4,18 +4,13 @@
   --font-family: 'Poppins', sans-serif;
   --primary-blue: #131921;
   --secondary-blue: #232f3e;
-
   --color-white: #fff;
   --color-dark: #333;
-
   --color-grey: #eee;
   --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-
   --color-yellow: #f3a847;
   --color-orange: #ff9900;
   --dark-orange: #f56600;
-
-  --color-primary: #232f3e;
   --color-success: #28a745;
   --color-danger: #ff1f1f;
 }

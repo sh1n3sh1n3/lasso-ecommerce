@@ -18,13 +18,33 @@ const ProductsPagination = ({
     setCurrentProductPage(productsPagesNumbers);
   };
 
+  const goToNextPage = () => {
+    setCurrentProductPage(currentProductPage + 1);
+    if (currentProductPage + 1 > maxPageNumberLimit) {
+      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    setCurrentProductPage(currentProductPage - 1);
+    if ((currentProductPage - 1) % pageNumberLimit === 0) {
+      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
+
   for (let i = 1; i <= Math.ceil(totalNumberOfProducts / productsPerPage); i++) {
     productsPagesNumbers.push(i);
   }
 
   return (
     <ul className={styles.container}>
-      <li>Anterior</li>
+      <li
+        className={currentProductPage === productsPagesNumbers[0] ? `${styles.hidden}` : null}
+        onClick={goToPreviousPage}>
+        Anterior
+      </li>
       {productsPagesNumbers.map((pageNumber) => {
         if (pageNumber < maxPageNumberLimit + 1 && pageNumber > minPageNumberLimit) {
           return (
@@ -37,7 +57,11 @@ const ProductsPagination = ({
           );
         }
       })}
-      <li>Próxima</li>
+      <li
+        className={currentProductPage === productsPagesNumbers.length ? `${styles.hidden}` : null}
+        onClick={goToNextPage}>
+        Próxima
+      </li>
       <p>
         <strong className={styles.page}>{`Página ${currentProductPage}`}</strong>
         <span>{` de `}</span>

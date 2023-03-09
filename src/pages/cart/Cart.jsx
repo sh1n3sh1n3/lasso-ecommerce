@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -9,6 +10,7 @@ import {
   decreaseCartProductQuantity,
   removeProductFromCart,
   clearAllCartItems,
+  calculateProductsSubtotal,
 } from '../../redux/slices/cartSlice';
 
 import { Card } from '../../components/index';
@@ -40,6 +42,10 @@ const Cart = () => {
   const clearCart = () => {
     dispatch(clearAllCartItems());
   };
+
+  useEffect(() => {
+    dispatch(calculateProductsSubtotal());
+  }, [dispatch, cartItems]);
 
   return (
     <section>
@@ -124,7 +130,7 @@ const Cart = () => {
                   <p>{`Produto(s) no carrinho: ${cartTotalQuantity}`}</p>
                   <div className={styles.text}>
                     <h4>Subtotal:</h4>
-                    <h3>{`R$:${cartTotalAmount.toFixed(2)},00`}</h3>
+                    <h3>{`R$:${cartTotalAmount.toFixed(2)}`}</h3>
                   </div>
                   <p>Juros e frete calculados no próximo passo.</p>
                   <button className='--btn --btn-block --btn-primary'>Continuar</button>

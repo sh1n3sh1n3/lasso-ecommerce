@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
+  addToCart,
   selectCartItems,
   selectCartTotalAmount,
   selectCartTotalQuantity,
+  decreaseCartProductQuantity,
 } from '../../redux/slices/cartSlice';
 
 import { Card } from '../../components/index';
@@ -16,9 +18,18 @@ import { BsArrowLeft } from 'react-icons/bs';
 import styles from './Cart.module.scss';
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
   const cartTotalAmount = useSelector(selectCartTotalAmount);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
+
+  const decreaseProductQuantity = (cart) => {
+    dispatch(decreaseCartProductQuantity(cart));
+  };
+
+  const increaseProductQuantity = (cart) => {
+    dispatch(addToCart(cart));
+  };
 
   return (
     <section>
@@ -63,11 +74,15 @@ const Cart = () => {
                       <td>{price}</td>
                       <td>
                         <div className={styles.count}>
-                          <button className='--btn'>-</button>
+                          <button className='--btn' onClick={() => decreaseProductQuantity(cart)}>
+                            -
+                          </button>
                           <p>
                             <strong>{cartTotalQuantity}</strong>
                           </p>
-                          <button className='--btn'>+</button>
+                          <button className='--btn' onClick={() => increaseProductQuantity(cart)}>
+                            +
+                          </button>
                         </div>
                       </td>
                       <td>{(price * cartTotalQuantity).toFixed(2)}</td>

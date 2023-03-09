@@ -1,0 +1,72 @@
+.container {
+  padding: 5px;
+  width: 100%;
+  overflow-x: auto;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 1.4rem;
+
+    thead {
+      border-top: 2px solid var(--secondary-blue);
+      border-bottom: 2px solid var(--secondary-blue);
+    }
+
+    th {
+      border: 1px solid var(--color-grey);
+    }
+
+    th,
+    td {
+      vertical-align: top;
+      text-align: left;
+      padding: 8px;
+      &.icons {
+        > * {
+          margin-right: 5px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    tr {
+      border-bottom: 1px solid var(--color-dark);
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--color-grey);
+    }
+  }
+  .summary {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+
+    .card {
+      padding: 1rem;
+      .text {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h3 {
+          color: var(--color-danger);
+        }
+      }
+      button {
+        margin-top: 5px;
+      }
+    }
+  }
+}
+.count {
+  display: flex;
+  align-items: center;
+  button {
+    border: 1px solid var(--primary-blue);
+  }
+  & > * {
+    margin-right: 1rem;
+  }
+}

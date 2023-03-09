@@ -7,6 +7,7 @@ import {
   selectCartTotalAmount,
   selectCartTotalQuantity,
   decreaseCartProductQuantity,
+  removeProductFromCart,
 } from '../../redux/slices/cartSlice';
 
 import { Card } from '../../components/index';
@@ -29,6 +30,10 @@ const Cart = () => {
 
   const increaseProductQuantity = (cart) => {
     dispatch(addToCart(cart));
+  };
+
+  const removeSelectedProduct = (cart) => {
+    dispatch(removeProductFromCart(cart));
   };
 
   return (
@@ -87,7 +92,11 @@ const Cart = () => {
                       </td>
                       <td>{(price * cartTotalQuantity).toFixed(2)}</td>
                       <td className={styles.icons}>
-                        <FaTrashAlt size={18} color='var(--color-danger)' />
+                        <FaTrashAlt
+                          size={18}
+                          color='var(--color-danger)'
+                          onClick={() => removeSelectedProduct(cart)}
+                        />
                       </td>
                     </tr>
                   );

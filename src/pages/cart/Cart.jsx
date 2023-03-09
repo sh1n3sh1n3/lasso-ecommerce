@@ -8,6 +8,7 @@ import {
   selectCartTotalQuantity,
   decreaseCartProductQuantity,
   removeProductFromCart,
+  clearAllCartItems,
 } from '../../redux/slices/cartSlice';
 
 import { Card } from '../../components/index';
@@ -34,6 +35,10 @@ const Cart = () => {
 
   const removeSelectedProduct = (cart) => {
     dispatch(removeProductFromCart(cart));
+  };
+
+  const clearCart = () => {
+    dispatch(clearAllCartItems());
   };
 
   return (
@@ -105,7 +110,9 @@ const Cart = () => {
             </table>
 
             <div className={styles.summary}>
-              <button className='--btn --btn-danger'>Limpar Carrinho</button>
+              <button className='--btn --btn-danger' onClick={clearCart}>
+                Limpar Carrinho
+              </button>
               <div className={styles.checkout}>
                 <div>
                   <Link to='/#product'>

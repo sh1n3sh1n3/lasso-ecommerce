@@ -52,10 +52,16 @@ const cartSlice = createSlice({
       state.cartItems = removedProductCartItem;
       toast.success(`${action.payload.name} removido do carrinho!`, { position: 'top-left' });
     },
+    clearAllCartItems(state, action) {
+      state.cartItems = [];
+      toast.info('Todos os produtos removidos do carrinho.', { position: 'top-left' });
+      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+    },
   },
 });
 
-export const { addToCart, decreaseCartProductQuantity, removeProductFromCart } = cartSlice.actions;
+export const { addToCart, decreaseCartProductQuantity, removeProductFromCart, clearAllCartItems } =
+  cartSlice.actions;
 export const selectCartItems = (state) => state.cart.cartItems;
 export const selectCartTotalQuantity = (state) => state.cart.cartTotalQuantity;
 export const selectCartTotalAmount = (state) => state.cart.cartTotalAmount;

@@ -28,10 +28,27 @@ const cartSlice = createSlice({
 
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
+    decreaseCartProductQuantity(state, action) {
+      const productIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
+
+      if (state.cartItems[productIndex].cartTotalQuantity > 1) {
+        state.cartItems[productIndex].cartTotalQuantity -= 1;
+        toast.info(`Diminuiu menos um ${action.payload.name} do carrinho.`, {
+          position: 'top-left',
+        });
+      } else if (state.cartItems[productIndex].cartTotalQuantity === 1) {
+        const newProductCartItem = state.cartItems.filter(
+          (cartItem) => cartItem.id !== action.payload.id,
+        );
+        state.cartItems = newProductCartItem;
+        toast.success(`${action.payload.name} removido do carrinho!`, { position: 'top-left' });
+      }
+      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+    },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, decreaseCartProductQuantity } = cartSlice.actions;
 export const selectCartItems = (state) => state.cart.cartItems;
 export const selectCartTotalQuantity = (state) => state.cart.cartTotalQuantity;
 export const selectCartTotalAmount = (state) => state.cart.cartTotalAmount;

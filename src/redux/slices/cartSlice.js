@@ -57,11 +57,28 @@ const cartSlice = createSlice({
       toast.info('Todos os produtos removidos do carrinho.', { position: 'top-left' });
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
+    calculateProductsSubtotal(state, action) {
+      const subtotalArray = [];
+      state.cartItems.map((item) => {
+        const { price, cartTotalQuantity } = item;
+        const cartProductsAmont = price * cartTotalQuantity;
+        return subtotalArray.push(cartProductsAmont);
+      });
+      const totalProductsPriceAmount = subtotalArray.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      state.cartTotalAmount = totalProductsPriceAmount;
+    },
   },
 });
 
-export const { addToCart, decreaseCartProductQuantity, removeProductFromCart, clearAllCartItems } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  decreaseCartProductQuantity,
+  removeProductFromCart,
+  clearAllCartItems,
+  calculateProductsSubtotal,
+} = cartSlice.actions;
 export const selectCartItems = (state) => state.cart.cartItems;
 export const selectCartTotalQuantity = (state) => state.cart.cartTotalQuantity;
 export const selectCartTotalAmount = (state) => state.cart.cartTotalAmount;

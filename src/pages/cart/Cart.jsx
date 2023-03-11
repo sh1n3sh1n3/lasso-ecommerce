@@ -11,6 +11,7 @@ import {
   removeProductFromCart,
   clearAllCartItems,
   calculateProductsSubtotal,
+  calculateProductsTotalQuantity,
 } from '../../redux/slices/cartSlice';
 
 import { Card } from '../../components/index';
@@ -45,6 +46,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(calculateProductsSubtotal());
+    dispatch(calculateProductsTotalQuantity());
   }, [dispatch, cartItems]);
 
   return (
@@ -127,7 +129,9 @@ const Cart = () => {
                 </div>
                 <br />
                 <Card cardClass={styles.card}>
-                  <p>{`Produto(s) no carrinho: ${cartTotalQuantity}`}</p>
+                  <p>
+                    <strong>{`Produto(s) no carrinho: ${cartTotalQuantity}`}</strong>
+                  </p>
                   <div className={styles.text}>
                     <h4>Subtotal:</h4>
                     <h3>{`R$:${cartTotalAmount.toFixed(2)}`}</h3>

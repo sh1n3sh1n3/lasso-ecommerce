@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { addToCart } from '../../../redux/slices/cartSlice';
+import { addToCart, calculateProductsTotalQuantity } from '../../../redux/slices/cartSlice';
 
 import { Card } from '../../index';
 
@@ -20,6 +20,7 @@ const ProductItem = ({ product, id, grid, name, price, desc, imgUrl }) => {
 
   const addProductToCart = (product) => {
     dispatch(addToCart(product));
+    dispatch(calculateProductsTotalQuantity());
   };
 
   return (

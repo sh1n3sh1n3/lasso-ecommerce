@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 
+import { toast } from 'react-toastify';
 import { FaShoppingCart, FaTimes, FaUserCircle } from 'react-icons/fa';
 import { AiOutlineBars } from 'react-icons/ai';
 
-import { useDispatch } from 'react-redux';
 import { setActiveUser, removeActiveUser } from '../../redux/slices/authSlice';
+import {
+  calculateProductsTotalQuantity,
+  selectCartTotalQuantity,
+} from '../../redux/slices/cartSlice';
 
 import { DisplayOnLogin, DisplayOnLogout } from '../linksLogic/LinksLogic';
 import { UseAdminLink } from '../adminRoute/AdminRoute';
@@ -28,22 +32,17 @@ const logo = (
 
 const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : '');
 
-const cart = (
-  <span className={styles.cart}>
-    <NavLink to='/cart' className={activeLink}>
-      Carrinho
-      <FaShoppingCart size={20} />
-      <p>0</p>
-    </NavLink>
-  </span>
-);
-
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const headerTotalCartQuantity = useSelector(selectCartTotalQuantity);
+
+  useEffect(() => {
+    dispatch(calculateProductsTotalQuantity());
+  }, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -87,6 +86,16 @@ const Header = () => {
         toast.error('Erro. Tente novamente mais tarde.');
       });
   };
+
+  const cart = (
+    <span className={styles.cart}>
+      <NavLink to='/cart' className={activeLink}>
+        Carrinho
+        <FaShoppingCart size={20} />
+        <p>{headerTotalCartQuantity}</p>
+      </NavLink>
+    </span>
+  );
 
   return (
     <header>

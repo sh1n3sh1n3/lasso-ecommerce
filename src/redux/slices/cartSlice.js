@@ -38,7 +38,7 @@ const cartSlice = createSlice({
         });
       } else if (state.cartItems[productIndex].cartTotalQuantity === 1) {
         const newProductCartItem = state.cartItems.filter(
-          (cartItem) => cartItem.id !== action.payload.id
+          (cartItem) => cartItem.id !== action.payload.id,
         );
         state.cartItems = newProductCartItem;
         toast.success(`${action.payload.name} removido do carrinho!`, { position: 'top-left' });
@@ -47,7 +47,7 @@ const cartSlice = createSlice({
     },
     removeProductFromCart(state, action) {
       const removedProductCartItem = state.cartItems.filter(
-        (cartItem) => cartItem.id !== action.payload.id
+        (cartItem) => cartItem.id !== action.payload.id,
       );
       state.cartItems = removedProductCartItem;
       toast.success(`${action.payload.name} removido do carrinho!`, { position: 'top-left' });
@@ -69,6 +69,18 @@ const cartSlice = createSlice({
       }, 0);
       state.cartTotalAmount = totalProductsPriceAmount;
     },
+    calculateProductsTotalQuantity(state, action) {
+      const cartQuantityArray = [];
+      state.cartItems.map((item) => {
+        const { cartTotalQuantity } = item;
+        const quantity = cartTotalQuantity;
+        return cartQuantityArray.push(quantity);
+      });
+      const calculateProductsQuantity = cartQuantityArray.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      state.cartTotalQuantity = calculateProductsQuantity;
+    },
   },
 });
 
@@ -78,7 +90,9 @@ export const {
   removeProductFromCart,
   clearAllCartItems,
   calculateProductsSubtotal,
+  calculateProductsTotalQuantity,
 } = cartSlice.actions;
+
 export const selectCartItems = (state) => state.cart.cartItems;
 export const selectCartTotalQuantity = (state) => state.cart.cartTotalQuantity;
 export const selectCartTotalAmount = (state) => state.cart.cartTotalAmount;

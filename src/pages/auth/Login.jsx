@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 
+import { selectPreviousUrl } from '../../redux/slices/cartSlice';
+
 import Card from '../../components/card/Card';
 import Spinner from '../../components/spinner/Spinner';
-
+import { toast } from 'react-toastify';
 import { FaGoogle } from 'react-icons/fa';
 
 import LoginImg from '../../assets/img/login.jpg';
@@ -20,6 +22,15 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const previousUrl = useSelector(selectPreviousUrl);
+
+  const redirectUser = () => {
+    if (previousUrl.includes('cart')) {
+      return navigate('/cart');
+    } else {
+      navigate('/');
+    }
+  };
 
   // Email login
   const loginUser = (e) => {
@@ -30,7 +41,7 @@ const Login = () => {
       .then(() => {
         setLoading(false);
         toast.success('Login efetuado com sucesso!');
-        navigate('/');
+        redirectUser();
       })
       .catch((e) => {
         if (e.code === 'auth/invalid-email') {
@@ -57,7 +68,7 @@ const Login = () => {
     signInWithPopup(auth, provider)
       .then(() => {
         toast.success('Login efetuado com sucesso!');
-        navigate('/');
+        redirectUser();
       })
       .catch((e) => {
         toast.error('Não foi possível conactar a sua conta Google.');

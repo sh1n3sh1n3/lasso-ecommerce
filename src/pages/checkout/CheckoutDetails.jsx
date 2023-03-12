@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { saveUserBillingAddress, saveUserShippingAddress } from '../../redux/slices/checkoutSlice';
 
 import { Card } from '../../components';
 
@@ -17,6 +21,8 @@ const initialAddressState = {
 const CheckoutDetails = () => {
   const [shippingUserAddress, setShippingUserAddress] = useState({ ...initialAddressState });
   const [billingUserAddress, setBillingUserAddress] = useState({ ...initialAddressState });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleUserShippingAddress = (e) => {
     const { name, value } = e.target;
@@ -31,8 +37,10 @@ const CheckoutDetails = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    console.log(shippingUserAddress);
-    console.log(billingUserAddress);
+    dispatch(saveUserShippingAddress(shippingUserAddress));
+    dispatch(saveUserBillingAddress(billingUserAddress));
+
+    navigate('/checkout');
   };
 
   return (

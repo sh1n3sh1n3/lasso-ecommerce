@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Pages
-import { Home, Contact, Login, Register, Reset, Admin, Cart } from './pages';
+import { Home, Contact, Login, Register, Reset, Admin, Cart, CheckoutDetails } from './pages';
 
 // Components
 import { Header, Footer, ProductDetails } from './components';
@@ -35,6 +35,7 @@ function App() {
           />
           <Route path='/product-details/:id' element={<ProductDetails />} />;
           <Route path='/cart' element={<Cart />} />;
+          <Route path='/checkout-details' element={<CheckoutDetails />} />;
         </Routes>
         <Footer />
       </BrowserRouter>

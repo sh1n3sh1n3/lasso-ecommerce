@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
 import {
   addToCart,
   selectCartItems,
@@ -12,7 +11,9 @@ import {
   clearAllCartItems,
   calculateProductsSubtotal,
   calculateProductsTotalQuantity,
+  saveUrl,
 } from '../../redux/slices/cartSlice';
+import { selectIsLoggedIn } from '../../redux/slices/authSlice';
 
 import { Card } from '../../components/index';
 
@@ -27,6 +28,8 @@ const Cart = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotalAmount = useSelector(selectCartTotalAmount);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const navigate = useNavigate();
 
   const decreaseProductQuantity = (cart) => {
     dispatch(decreaseCartProductQuantity(cart));
@@ -47,7 +50,18 @@ const Cart = () => {
   useEffect(() => {
     dispatch(calculateProductsSubtotal());
     dispatch(calculateProductsTotalQuantity());
+    dispatch(saveUrl(''));
   }, [dispatch, cartItems]);
+
+  const currentUrl = window.location.href;
+  const checkout = () => {
+    if (isLoggedIn) {
+      navigate('/checkout-details');
+    } else {
+      dispatch(saveUrl(currentUrl));
+      navigate('/login');
+    }
+  };
 
   return (
     <section>
@@ -137,7 +151,9 @@ const Cart = () => {
                     <h3>{`R$:${cartTotalAmount.toFixed(2)}`}</h3>
                   </div>
                   <p>Juros e frete calculados no próximo passo.</p>
-                  <button className='--btn --btn-block --btn-primary'>Continuar</button>
+                  <button className='--btn --btn-block --btn-primary' onClick={checkout}>
+                    Continuar
+                  </button>
                 </Card>
               </div>
             </div>

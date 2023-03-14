@@ -17,3 +17,4 @@ export { default as ProductItem } from './productsContainer/productItem/ProductI
 export { default as ProductsList } from './productsContainer/productsList/ProductsList';
 export { default as SearchBar } from './searchBar/SearchBar';
 export { default as ProductsPagination } from './productsPagination/ProductsPagination';
+export { default as CheckoutSummary } from './checkoutSummary/CheckoutSummary';

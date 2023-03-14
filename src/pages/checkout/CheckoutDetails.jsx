@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { saveUserBillingAddress, saveUserShippingAddress } from '../../redux/slices/checkoutSlice';
 
-import { Card } from '../../components';
+import { Card, CheckoutSummary } from '../../components';
 
 import styles from './CheckoutDetails.module.scss';
 
@@ -183,6 +183,11 @@ const CheckoutDetails = () => {
               <button className='--btn --btn-primary' type='submit'>
                 Confirmar e Continuar
               </button>
+            </Card>
+          </div>
+          <div>
+            <Card cardClass={styles.card}>
+              <CheckoutSummary />
             </Card>
           </div>
         </form>

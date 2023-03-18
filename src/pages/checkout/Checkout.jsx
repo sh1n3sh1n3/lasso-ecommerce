@@ -1,5 +1,92 @@
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+import {
+  calculateProductsSubtotal,
+  calculateProductsTotalQuantity,
+  selectCartItems,
+  selectCartTotalAmount,
+} from '../../redux/slices/cartSlice';
+import { selectEmail } from '../../redux/slices/authSlice';
+import {
+  selectUserBillingAddress,
+  selectUserShippingAddress,
+} from '../../redux/slices/checkoutSlice';
+
+import { CheckoutForm } from '../../components';
+
+import { toast } from 'react-toastify';
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+
 const Checkout = () => {
-  return <div>Checkout</div>;
+  const [clientSecret, setClientSecret] = useState('');
+  const [message, setMessage] = useState('Iniciando processo de pagamento.');
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector(selectCartItems);
+  const cartTotalAmount = useSelector(selectCartTotalAmount);
+  const userEmail = useSelector(selectEmail);
+  const userShippingAddress = useSelector(selectUserShippingAddress);
+  const userBillingAddress = useSelector(selectUserBillingAddress);
+
+  useEffect(() => {
+    dispatch(calculateProductsSubtotal());
+    dispatch(calculateProductsTotalQuantity());
+  }, [dispatch, cartItems]);
+
+  const paymentDescription = `Pagamento de usuário para Lasso = Email: ${userEmail}, Quantidade de produtos: ${cartTotalAmount}`;
+
+  useEffect(() => {
+    fetch('http://localhost:5000/create-payment-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: cartItems,
+        userEmal: userEmail,
+        userShippingAddress: userShippingAddress,
+        userBillingAddress: userBillingAddress,
+        paymentDescription: paymentDescription,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return res.json().then((json) => Promise.reject);
+      })
+      .then((data) => {
+        setClientSecret(data.clientSecret);
+      })
+      .catch((e) => {
+        setMessage('Falha ao inicializar o processo de pagamento. Tente novamente mais tarde.');
+        toast.error('Erro. Entre em contato com o administrador da página.');
+      });
+  }, []);
+
+  const appearance = {
+    theme: 'stripe',
+  };
+  const options = {
+    clientSecret,
+    appearance,
+  };
+
+  return (
+    <>
+      <section>
+        <div className='container'>{!clientSecret && <h3>{message}</h3>}</div>
+      </section>
+      {clientSecret && (
+        <Elements options={options} stripe={stripePromise}>
+          <CheckoutForm />
+        </Elements>
+      )}
+    </>
+  );
 };
 
 export default Checkout;

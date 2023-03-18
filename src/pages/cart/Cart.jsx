@@ -103,7 +103,7 @@ const Cart = () => {
                         </p>
                         <img src={imgUrl} alt={name} style={{ width: '100px' }} />
                       </td>
-                      <td>{price}</td>
+                      <td>{`R$:${price.toFixed(2)}`}</td>
                       <td>
                         <div className={styles.count}>
                           <button className='--btn' onClick={() => decreaseProductQuantity(cart)}>
@@ -117,7 +117,7 @@ const Cart = () => {
                           </button>
                         </div>
                       </td>
-                      <td>{(price * cartTotalQuantity).toFixed(2)}</td>
+                      <td>{`R$:${(price * cartTotalQuantity).toFixed(2)}`}</td>
                       <td className={styles.icons}>
                         <FaTrashAlt
                           size={18}

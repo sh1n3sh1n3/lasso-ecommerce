@@ -34,7 +34,7 @@ const CheckoutSummary = () => {
             </p>
             <div className={styles.text}>
               <h4>Subtotal:</h4>
-              <h3>{cartTotalAmount.toFixed(2)}</h3>
+              <h3>{`R$:${cartTotalAmount.toFixed(2)}`}</h3>
             </div>
             {cartTotalItems.map((cartItem, index) => {
               const { id, name, price, cartTotalQuantity } = cartItem;
@@ -48,12 +48,14 @@ const CheckoutSummary = () => {
                   </p>
                   <p>
                     Preço por unidade:{' '}
-                    <strong style={{ color: 'var(--dark-orange)' }}>{price.toFixed(2)}</strong>
+                    <strong style={{ color: 'var(--dark-orange)' }}>{`R$:${price.toFixed(
+                      2,
+                    )}`}</strong>
                   </p>
                   <p>
                     Preço total:{' '}
                     <strong style={{ color: 'var(--dark-orange)' }}>
-                      {(price * cartTotalQuantity).toFixed(2)}
+                      {`R$:${(price * cartTotalQuantity).toFixed(2)}`}
                     </strong>
                   </p>
                 </Card>

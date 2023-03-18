@@ -8,16 +8,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Mensagem Teste');
-});
-
 const orderAmountArray = [];
 const calculateOrderAmount = (items) => {
-  items.cartItems.map((item) => {
+  items.map((item) => {
     const { price, cartTotalQuantity } = item;
-    const cartProductsAmont = price * cartTotalQuantity;
-    return orderAmountArray.push(cartProductsAmont);
+    const cartTotalProductsAmount = parseInt(price * cartTotalQuantity);
+    return orderAmountArray.push(cartTotalProductsAmount);
   });
   const totalProductsPriceAmount = orderAmountArray.reduce((a, b) => {
     return a + b;
@@ -26,7 +22,7 @@ const calculateOrderAmount = (items) => {
 };
 
 app.post('/create-payment-intent', async (req, res) => {
-  const { items, userShippingAddress, paymentDescription } = req.body;
+  const { items, shipping, description } = req.body;
 
   const paymentIntent = await stripe.paymentIntents.create({
     amount: calculateOrderAmount(items),
@@ -34,17 +30,17 @@ app.post('/create-payment-intent', async (req, res) => {
     automatic_payment_methods: {
       enabled: true,
     },
-    paymentDescription,
-    userShippingAddress: {
+    description,
+    shipping: {
       address: {
-        lineOne: userShippingAddress.lineOne,
-        lineTwo: userShippingAddress.lineTwo,
-        city: userShippingAddress.city,
-        country: userShippingAddress.country,
-        portalCode: userShippingAddress.portalCode,
+        line1: shipping.lineOne,
+        line2: shipping.lineTwo,
+        city: shipping.city,
+        country: shipping.country,
+        postal_code: shipping.portalCode,
       },
-      name: userShippingAddress.name,
-      phone: userShippingAddress.phone,
+      name: shipping.name,
+      phone: shipping.phone,
     },
   });
 
@@ -53,5 +49,5 @@ app.post('/create-payment-intent', async (req, res) => {
   });
 });
 
-const port = process.env.REACT_APP_DEFAULT_SERVER_PORT || 5000;
+const port = process.env.REACT_APP_DEFAULT_SERVER_PORT || 4242;
 app.listen(port, () => console.log(`Servidor node funcionando na porta ${port}!`));

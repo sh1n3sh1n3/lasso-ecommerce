@@ -38,25 +38,27 @@ const Checkout = () => {
     dispatch(calculateProductsTotalQuantity());
   }, [dispatch, cartItems]);
 
-  const paymentDescription = `Pagamento de usuário para Lasso = Email: ${userEmail}, Quantidade de produtos: ${cartTotalAmount}`;
+  const paymentDescription = `Pagamento de usuário para Lasso = Email: ${userEmail}. Valor total do(s) produto(s): R$:${cartTotalAmount.toFixed(
+    2,
+  )}`;
 
   useEffect(() => {
-    fetch('http://localhost:5000/create-payment-intent', {
+    fetch('http://localhost:4242/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         items: cartItems,
-        userEmal: userEmail,
-        userShippingAddress: userShippingAddress,
-        userBillingAddress: userBillingAddress,
-        paymentDescription: paymentDescription,
+        userEmail: userEmail,
+        shipping: userShippingAddress,
+        billing: userBillingAddress,
+        description: paymentDescription,
       }),
     })
       .then((res) => {
         if (res.ok) {
           return res.json();
         }
-        return res.json().then((json) => Promise.reject);
+        return res.json().then((json) => Promise.reject(json));
       })
       .then((data) => {
         setClientSecret(data.clientSecret);

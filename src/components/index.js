@@ -18,3 +18,4 @@ export { default as ProductsList } from './productsContainer/productsList/Produc
 export { default as SearchBar } from './searchBar/SearchBar';
 export { default as ProductsPagination } from './productsPagination/ProductsPagination';
 export { default as CheckoutSummary } from './checkoutSummary/CheckoutSummary';
+export { default as CheckoutForm } from './checkoutForm/CheckoutForm';

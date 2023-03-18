@@ -19,26 +19,26 @@ const initialAddressState = {
 };
 
 const CheckoutDetails = () => {
-  const [shippingUserAddress, setShippingUserAddress] = useState({ ...initialAddressState });
-  const [billingUserAddress, setBillingUserAddress] = useState({ ...initialAddressState });
+  const [userShippingAddress, setShippingUserAddress] = useState({ ...initialAddressState });
+  const [userBillingAddress, setBillingUserAddress] = useState({ ...initialAddressState });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleUserShippingAddress = (e) => {
     const { name, value } = e.target;
-    setShippingUserAddress({ ...shippingUserAddress, [name]: value });
+    setShippingUserAddress({ ...userShippingAddress, [name]: value });
   };
 
   const handleUserBillingAddress = (e) => {
     const { name, value } = e.target;
-    setBillingUserAddress({ ...billingUserAddress, [name]: value });
+    setBillingUserAddress({ ...userBillingAddress, [name]: value });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(saveUserShippingAddress(shippingUserAddress));
-    dispatch(saveUserBillingAddress(billingUserAddress));
+    dispatch(saveUserShippingAddress(userShippingAddress));
+    dispatch(saveUserBillingAddress(userBillingAddress));
 
     navigate('/checkout');
   };
@@ -57,7 +57,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Nome Completo'
                 name='name'
-                value={shippingUserAddress.name}
+                value={userShippingAddress.name}
                 onChange={(e) => handleUserShippingAddress(e)}
                 required
               />
@@ -66,7 +66,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Rua/Longradouro'
                 name='lineOne'
-                value={shippingUserAddress.lineOne}
+                value={userShippingAddress.lineOne}
                 onChange={(e) => handleUserShippingAddress(e)}
                 required
               />
@@ -75,7 +75,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Ponto de Referência'
                 name='lineTwo'
-                value={shippingUserAddress.lineTwo}
+                value={userShippingAddress.lineTwo}
                 onChange={(e) => handleUserShippingAddress(e)}
               />
               <label>Cidade</label>
@@ -83,7 +83,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Cidade'
                 name='city'
-                value={shippingUserAddress.city}
+                value={userShippingAddress.city}
                 onChange={(e) => handleUserShippingAddress(e)}
                 required
               />
@@ -92,7 +92,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Estado'
                 name='state'
-                value={shippingUserAddress.state}
+                value={userShippingAddress.state}
                 onChange={(e) => handleUserShippingAddress(e)}
                 required
               />
@@ -101,7 +101,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='CEP'
                 name='postalCode'
-                value={shippingUserAddress.postalCode}
+                value={userShippingAddress.postalCode}
                 onChange={(e) => handleUserShippingAddress(e)}
                 required
               />
@@ -110,7 +110,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Telefone / Celular'
                 name='phone'
-                value={shippingUserAddress.phone}
+                value={userShippingAddress.phone}
                 onChange={(e) => handleUserShippingAddress(e)}
                 required
               />
@@ -123,7 +123,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Nome Completo'
                 name='name'
-                value={billingUserAddress.name}
+                value={userBillingAddress.name}
                 onChange={(e) => handleUserBillingAddress(e)}
                 required
               />
@@ -132,7 +132,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Rua/Longradouro'
                 name='lineOne'
-                value={billingUserAddress.lineOne}
+                value={userBillingAddress.lineOne}
                 onChange={(e) => handleUserBillingAddress(e)}
                 required
               />
@@ -141,7 +141,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Ponto de Referência'
                 name='lineTwo'
-                value={billingUserAddress.lineTwo}
+                value={userBillingAddress.lineTwo}
                 onChange={(e) => handleUserBillingAddress(e)}
               />
               <label>Cidade</label>
@@ -149,7 +149,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Cidade'
                 name='city'
-                value={billingUserAddress.city}
+                value={userBillingAddress.city}
                 onChange={(e) => handleUserBillingAddress(e)}
                 required
               />
@@ -158,7 +158,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Estado'
                 name='state'
-                value={billingUserAddress.state}
+                value={userBillingAddress.state}
                 onChange={(e) => handleUserBillingAddress(e)}
                 required
               />
@@ -167,7 +167,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='CEP'
                 name='postalCode'
-                value={billingUserAddress.postalCode}
+                value={userBillingAddress.postalCode}
                 onChange={(e) => handleUserBillingAddress(e)}
                 required
               />
@@ -176,7 +176,7 @@ const CheckoutDetails = () => {
                 type='text'
                 placeholder='Telefone / Celular'
                 name='phone'
-                value={billingUserAddress.phone}
+                value={userBillingAddress.phone}
                 onChange={(e) => handleUserBillingAddress(e)}
                 required
               />

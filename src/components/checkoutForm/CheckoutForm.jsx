@@ -1,10 +1,19 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { addDoc, collection, Timestamp } from 'firebase/firestore';
+import { db } from '../../firebase/config';
+
+import { selectUserId, selectEmail } from '../../redux/slices/authSlice';
 import {
-  PaymentElement,
-  LinkAuthenticationElement,
-  useStripe,
-  useElements,
-} from '@stripe/react-stripe-js';
+  selectCartItems,
+  selectCartTotalAmount,
+  clearAllCartItems,
+} from '../../redux/slices/cartSlice';
+import { selectUserShippingAddress } from '../../redux/slices/checkoutSlice';
+
+import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 import { Card, CheckoutSummary } from '../index';
 
@@ -14,12 +23,19 @@ import { toast } from 'react-toastify';
 import styles from './CheckoutForm.module.scss';
 
 const CheckoutForm = () => {
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const stripe = useStripe();
+  const elements = useElements();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userId = useSelector(selectUserId);
+  const userEmail = useSelector(selectEmail);
+  const cartItems = useSelector(selectCartItems);
+  const shippingAddress = useSelector(selectUserShippingAddress);
+  const cartTotalAmount = useSelector(selectCartTotalAmount);
 
   useEffect(() => {
     if (!stripe) {
@@ -36,7 +52,29 @@ const CheckoutForm = () => {
   }, [stripe]);
 
   const saveUserOrder = () => {
-    console.log('Salvar Pedido.');
+    const getDate = new Date();
+    const dateString = getDate.toDateString();
+    const currentTime = getDate.toLocaleTimeString();
+
+    const orderConfig = {
+      userId,
+      userEmail,
+      cartItems,
+      orderAmount: cartTotalAmount,
+      shippingAddress,
+      orderDate: dateString,
+      orderTime: currentTime,
+      orderStatus: 'Pedido Aceito',
+      uploadedTime: Timestamp.now().toDate(),
+    };
+
+    try {
+      addDoc(collection(db, 'orders'), orderConfig);
+      dispatch(clearAllCartItems());
+      navigate('/checkout-success');
+    } catch (e) {
+      toast.error('Erro no banco de dados. Contate o administrador da página.');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -50,12 +88,13 @@ const CheckoutForm = () => {
 
     setIsLoading(true);
 
-    const confirmPayment = await stripe
+    await stripe
       .confirmPayment({
         elements,
         confirmParams: {
           return_url: 'http://localhost:3000/checkout-success',
         },
+        redirect: 'if_required',
       })
       .then((res) => {
         if (res.error) {

@@ -32,6 +32,12 @@ body {
   font-family: var(--font-family);
 }
 
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 section {
   width: 100%;
   padding: 4rem 0;

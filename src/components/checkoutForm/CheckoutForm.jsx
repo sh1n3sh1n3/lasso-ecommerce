@@ -56,7 +56,6 @@ const CheckoutForm = () => {
         confirmParams: {
           return_url: 'http://localhost:3000/checkout-success',
         },
-        redirect: 'if_required',
       })
       .then((res) => {
         if (res.error) {

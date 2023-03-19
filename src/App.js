@@ -14,6 +14,7 @@ import {
   CheckoutDetails,
   Checkout,
   CheckoutSuccess,
+  OrderHistory,
 } from './pages';
 
 // Components
@@ -49,6 +50,7 @@ function App() {
           <Route path='/checkout-details' element={<CheckoutDetails />} />;
           <Route path='/checkout' element={<Checkout />} />;
           <Route path='/checkout-success' element={<CheckoutSuccess />} />;
+          <Route path='/order-history' element={<OrderHistory />} />
         </Routes>
         <Footer />
       </BrowserRouter>

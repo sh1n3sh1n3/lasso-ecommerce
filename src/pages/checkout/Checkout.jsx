@@ -24,7 +24,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const Checkout = () => {
   const [clientSecret, setClientSecret] = useState('');
-  const [message, setMessage] = useState('Iniciando processo de pagamento.');
+  const [message, setMessage] = useState('Iniciando processo de pagamento. Aguarde....');
   const dispatch = useDispatch();
 
   const cartItems = useSelector(selectCartItems);
@@ -38,9 +38,9 @@ const Checkout = () => {
     dispatch(calculateProductsTotalQuantity());
   }, [dispatch, cartItems]);
 
-  const paymentDescription = `Pagamento de usuário para Lasso = Email: ${userEmail}. Valor total do(s) produto(s): R$:${cartTotalAmount.toFixed(
+  const paymentDescription = `Pagamento de ${userEmail} para Lasso, valor total do(s) produto(s) de: R$:${cartTotalAmount.toFixed(
     2,
-  )}`;
+  )}.`;
 
   useEffect(() => {
     fetch('http://localhost:4242/create-payment-intent', {

@@ -65,13 +65,14 @@ const CheckoutForm = () => {
       orderDate: dateString,
       orderTime: currentTime,
       orderStatus: 'Pedido Aceito',
-      uploadedTime: Timestamp.now().toDate(),
+      uploadTime: Timestamp.now().toDate(),
     };
 
     try {
       addDoc(collection(db, 'orders'), orderConfig);
       dispatch(clearAllCartItems());
       navigate('/checkout-success');
+      toast.success('Pedido disponível para consulta na página Pedidos');
     } catch (e) {
       toast.error('Erro no banco de dados. Contate o administrador da página.');
     }

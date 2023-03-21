@@ -1,9 +1,15 @@
+import img0 from '../../assets/img/carousel-img-0.jpg';
 import img1 from '../../assets/img/carousel-img-1.jpg';
 import img2 from '../../assets/img/carousel-img-2.jpg';
 import img3 from '../../assets/img/carousel-img-3.jpg';
 import img4 from '../../assets/img/carousel-img-4.jpg';
 
 export const imgData = [
+  {
+    image: img0,
+    title: 'Brinquedos e Artigos Espaciais',
+    description: 'Para o infinito e além!',
+  },
   {
     image: img1,
     title: 'Smartphones Novos',

@@ -16,6 +16,10 @@ import styles from './AdminAddProduct.module.scss';
 
 const categories = [
   {
+    id: 0,
+    name: 'Espacial',
+  },
+  {
     id: 1,
     name: 'Celular',
   },
@@ -62,7 +66,7 @@ const AdminAddProduct = () => {
       {
         ...emptyProductState,
       },
-      productModify
+      productModify,
     );
     return customState;
   });
@@ -95,7 +99,7 @@ const AdminAddProduct = () => {
           });
           toast.success('Imagem adicionada com sucesso.');
         });
-      }
+      },
     );
   };
 
@@ -124,11 +128,11 @@ const AdminAddProduct = () => {
   const modifyProduct = (e) => {
     e.preventDefault();
 
-    if(product.imgUrl !== productModify.imgUrl) {
-        const imageRef = ref(storage, productModify.imgUrl);
-        deleteObject(imageRef);
-    };
-    
+    if (product.imgUrl !== productModify.imgUrl) {
+      const imageRef = ref(storage, productModify.imgUrl);
+      deleteObject(imageRef);
+    }
+
     try {
       setDoc(doc(db, 'products', id), {
         name: product.name,
@@ -204,8 +208,7 @@ const AdminAddProduct = () => {
             name='category'
             value={product.category}
             required
-            onChange={(e) => handleInputChange(e)}
-          >
+            onChange={(e) => handleInputChange(e)}>
             <option value='' disabled>
               Escolha uma categoria
             </option>
@@ -233,8 +236,7 @@ const AdminAddProduct = () => {
             cols='30'
             rows='10'
             required
-            onChange={(e) => handleInputChange(e)}
-          ></textarea>
+            onChange={(e) => handleInputChange(e)}></textarea>
           <button className='--btn --btn-primary'>
             {identifyFormType(id, 'Adicionar produto', 'Atualizar produto')}
           </button>

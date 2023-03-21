@@ -34,7 +34,7 @@ function Carousel() {
                   <h2>{title}</h2>
                   <p>{description}</p>
                   <hr />
-                  <a className='--btn --btn-primary' href='#product'>
+                  <a className='--btn --btn-primary' href='#products'>
                     Compre Agora
                   </a>
                 </div>

@@ -53,7 +53,7 @@ const CheckoutForm = () => {
 
   const saveUserOrder = () => {
     const getDate = new Date();
-    const dateString = getDate.toDateString();
+    const dateString = `${getDate.getDate()}/${getDate.getMonth() + 1}/${getDate.getFullYear()}`;
     const currentTime = getDate.toLocaleTimeString();
 
     const orderConfig = {

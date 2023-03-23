@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import useFetchCollection from '../../customHooks/useFetchCollection';
 
 import { selectOrderHistory, storeOrders } from '../../redux/slices/orderSlice';
-// import { selectUserId } from '../../redux/slices/authSlice';
+import { selectUserId } from '../../redux/slices/authSlice';
 
 import { Spinner } from '../../components/index';
 
@@ -16,7 +16,7 @@ const OrderHistory = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fetchOrders = useSelector(selectOrderHistory);
-  // const userId = useSelector(selectUserId);
+  const userId = useSelector(selectUserId);
 
   useEffect(() => {
     dispatch(storeOrders(data));
@@ -25,6 +25,8 @@ const OrderHistory = () => {
   const openOrderDetail = (id) => {
     navigate(`/order-details/${id}`);
   };
+
+  const showOdersByUserId = fetchOrders.filter((order) => order.userId === userId);
 
   return (
     <section>
@@ -37,7 +39,7 @@ const OrderHistory = () => {
         <>
           {isLoading && <Spinner />}
           <div className={styles.container}>
-            {fetchOrders.length === 0 ? (
+            {showOdersByUserId.length === 0 ? (
               <p>Nenhum pedido encontrado.</p>
             ) : (
               <table>
@@ -51,7 +53,7 @@ const OrderHistory = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {fetchOrders.map((order, index) => {
+                  {showOdersByUserId.map((order, index) => {
                     const { id, orderDate, orderTime, orderAmount, orderStatus } = order;
                     const orderNumber = index + 1;
 

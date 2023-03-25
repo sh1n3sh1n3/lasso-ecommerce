@@ -29,6 +29,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+app.get('/', (req, res) => {
+  res.send('Lasso loja online');
+});
+
 app.post('/create-payment-intent', async (req, res) => {
   const { items, shipping, description } = req.body;
 

@@ -61,5 +61,5 @@ app.post('/create-payment-intent', async (req, res) => {
   });
 });
 
-const port = process.env.REACT_APP_DEFAULT_SERVER_PORT || 4242;
+const port = process.env.PORT || 4242;
 app.listen(port, () => console.log(`Servidor node funcionando na porta ${port}!`));

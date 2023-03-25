@@ -43,7 +43,13 @@ const Checkout = () => {
   )}.`;
 
   useEffect(() => {
-    fetch('http://localhost:4242/create-payment-intent', {
+    const paymentIntentLink = process.env.REACT_APP_PAYMENT_INTENT_LINK
+      ? process.env.REACT_APP_PAYMENT_INTENT_LINK
+      : 'http://localhost:4242/create-payment-intent';
+
+    console.log(process.env.REACT_APP_PAYMENT_INTENT_LINK);
+
+    fetch(paymentIntentLink, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

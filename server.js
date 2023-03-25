@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 app.use(cors());
 app.use(express.json());
+const path = require('path');
 
 const orderAmountArray = [];
 const calculateOrderAmount = (items) => {
@@ -20,6 +21,13 @@ const calculateOrderAmount = (items) => {
   }, 0);
   return totalProductsPriceAmount * 100;
 };
+
+if (process.env.REACT_APP_NODE_ENV === 'production') {
+  app.use(express.static('build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  });
+}
 
 app.post('/create-payment-intent', async (req, res) => {
   const { items, shipping, description } = req.body;

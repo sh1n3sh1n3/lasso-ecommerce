@@ -33,7 +33,8 @@ const OrderHistory = () => {
       <div className={`container ${styles.order}`}>
         <h2>Lista de Pedidos</h2>
         <p>
-          Selecione um pedido para deixar sua <strong>avaliação</strong>.
+          Selecione um pedido para ver os <strong>detalhes do pedido</strong> ou deixar sua{' '}
+          <strong>avaliação</strong>.
         </p>
         <br />
         <>

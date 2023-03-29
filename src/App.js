@@ -19,7 +19,7 @@ import {
 } from './pages';
 
 // Components
-import { Header, Footer, ProductDetails } from './components';
+import { Header, Footer, ProductDetails, ReviewProduct } from './components';
 
 import { UseAdminRoute } from './components/adminRoute/AdminRoute';
 
@@ -53,6 +53,7 @@ function App() {
           <Route path='/checkout-success' element={<CheckoutSuccess />} />;
           <Route path='/order-history' element={<OrderHistory />} />
           <Route path='/order-details/:id' element={<OrderDetails />} />
+          <Route path='/review-product/:id' element={<ReviewProduct />} />
         </Routes>
         <Footer />
       </BrowserRouter>

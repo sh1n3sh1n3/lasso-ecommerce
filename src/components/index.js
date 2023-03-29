@@ -19,3 +19,4 @@ export { default as SearchBar } from './searchBar/SearchBar';
 export { default as ProductsPagination } from './productsPagination/ProductsPagination';
 export { default as CheckoutSummary } from './checkoutSummary/CheckoutSummary';
 export { default as CheckoutForm } from './checkoutForm/CheckoutForm';
+export { default as ReviewProduct } from './reviewProduct/ReviewProduct';

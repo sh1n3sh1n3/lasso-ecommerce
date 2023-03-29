@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../../firebase/config';
-
 import { BsArrowLeft } from 'react-icons/bs';
-import { toast } from 'react-toastify';
 import { Spinner } from '../../index';
 import {
   addToCart,
@@ -14,6 +10,8 @@ import {
   calculateProductsTotalQuantity,
   selectCartItems,
 } from '../../../redux/slices/cartSlice';
+
+import useFetchDocument from '../../../customHooks/useFetchDocument';
 
 import styles from './ProductDetails.module.scss';
 
@@ -25,24 +23,11 @@ const ProductDetails = () => {
   const findCartItem = cartItemsQuantity.find((cartItem) => cartItem.id === id);
   const isProductInCart = cartItemsQuantity.findIndex((cartItem) => cartItem.id === id);
 
-  const getProduct = async () => {
-    const productRef = doc(db, 'products', id);
-    const productSnap = await getDoc(productRef);
-
-    if (productSnap.exists()) {
-      const obj = {
-        id: id,
-        ...productSnap.data(),
-      };
-      setProduct(obj);
-    } else {
-      toast.error('Produto não encontrado');
-    }
-  };
+  const { document } = useFetchDocument('products', id);
 
   useEffect(() => {
-    getProduct();
-  }, []);
+    setProduct(document);
+  }, [document]);
 
   const addProductToCart = (product) => {
     dispatch(addToCart(product));

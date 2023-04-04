@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import StarsRating from 'react-star-rate';
 import { BsArrowLeft } from 'react-icons/bs';
-import { Spinner } from '../../index';
+import { Card, Spinner } from '../../index';
+
 import {
   addToCart,
   decreaseCartProductQuantity,
@@ -11,6 +13,7 @@ import {
   selectCartItems,
 } from '../../../redux/slices/cartSlice';
 
+import useFetchCollection from '../../../customHooks/useFetchCollection';
 import useFetchDocument from '../../../customHooks/useFetchDocument';
 
 import styles from './ProductDetails.module.scss';
@@ -24,6 +27,9 @@ const ProductDetails = () => {
   const isProductInCart = cartItemsQuantity.findIndex((cartItem) => cartItem.id === id);
 
   const { document } = useFetchDocument('products', id);
+  const { data } = useFetchCollection('reviews');
+
+  const filterReviews = data.filter((review) => review.productId === id);
 
   useEffect(() => {
     setProduct(document);
@@ -91,6 +97,33 @@ const ProductDetails = () => {
             </div>
           </>
         )}
+        <Card cardClass={styles.card}>
+          <h3>Avaliações do Produto</h3>
+          <div>
+            {filterReviews.length === 0 ? (
+              <p>Seja a primeira pessoa a avaliar esse produto!</p>
+            ) : (
+              <>
+                {filterReviews.map((userReview, index) => {
+                  const { rate, review, reviewDate, userName } = userReview;
+                  return (
+                    <div key={index} className={styles.review}>
+                      <StarsRating value={rate} />
+                      <p>{review}</p>
+                      <span>
+                        <strong>Data: {reviewDate}</strong>
+                      </span>
+                      <br />
+                      <span>
+                        <strong>Usuário: {userName}</strong>
+                      </span>
+                    </div>
+                  );
+                })}
+              </>
+            )}
+          </div>
+        </Card>
       </div>
     </section>
   );

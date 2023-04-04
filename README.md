@@ -39,6 +39,24 @@ React toastify | Biblioteca de caixa de notificações e informações
 
 ---
 
+### Cartão de crédito para teste
+O Stripe provê um cartão de crédito teste para comprar os produtos, que você pode usar para testar a função de checkout.
+
+#### :heavy_check_mark: Para simular um pagamento válido, use o seguinte número de cartão:
+#### Número do cartão: 4242 4242 4242 4242
+Use uma data futura válida, como 12/34.
+
+Use __qualquer__ CVC de três dígitos.
+
+Use __qualquer valor__ nos outros campos do formulário.
+
+:warning: Somente teste, o produto não será comprado de verdade.
+
+#### :x: Para simular uma compra inválida (recusada) use o seguinte número de cartão:
+#### Número do cartão: 4000 0000 0000 0002
+
+---
+
 ### Como usar a Lasso no seu computador
 
 Para ter uma cópia do site funcionando locamente no seu computador, siga esses passos simples:

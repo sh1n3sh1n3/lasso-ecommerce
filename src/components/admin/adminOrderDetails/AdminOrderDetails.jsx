@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import useFetchDocument from '../../../customHooks/useFetchDocument';
 
+import { AdminChangeOrderDetails } from '../../index';
 import { BsArrowLeft } from 'react-icons/bs';
 import spinnerGif from '../../../assets/img/spinner.gif';
 
@@ -119,6 +120,7 @@ const AdminOrderDetails = () => {
             </table>
           </>
         )}
+        <AdminChangeOrderDetails order={order} id={id} />
       </div>
     </>
   );

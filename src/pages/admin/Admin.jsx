@@ -5,6 +5,7 @@ import {
   AdminViewProducts,
   AdminAddProduct,
   AdminOrders,
+  AdminOrderDetails,
 } from '../../components/index';
 
 import styles from './Admin.module.scss';
@@ -20,6 +21,7 @@ const Admin = () => {
           <Route path='view-all-products' element={<AdminViewProducts />}></Route>
           <Route path='add-product/:id' element={<AdminAddProduct />}></Route>
           <Route path='orders' element={<AdminOrders />}></Route>
+          <Route path='order-details/:id' element={<AdminOrderDetails />}></Route>
         </Routes>
       </div>
     </div>

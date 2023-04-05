@@ -1,13 +1,35 @@
+import { useRef } from 'react';
+import emailjs from '@emailjs/browser';
+
 import styles from './Contact.module.scss';
 
 import { Card } from '../../components/index';
 import { FaEnvelope, FaPhoneAlt, FaTwitter } from 'react-icons/fa';
 import { GoLocation } from 'react-icons/go';
+import { toast } from 'react-toastify';
 
 const Contact = () => {
+  const form = useRef();
+
   const submitContactForm = (e) => {
     e.preventDefault();
-    console.log('Enviado!');
+
+    emailjs
+      .sendForm(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        form.current,
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY,
+      )
+      .then(
+        () => {
+          toast.success('Mensagem enviada com sucesso!');
+        },
+        (e) => {
+          console.log('Erro ao entrar em contato. Tente novamente mais tarde.');
+        },
+      );
+    e.target.reset();
   };
 
   return (
@@ -15,7 +37,7 @@ const Contact = () => {
       <div className={`container ${styles.container}`}>
         <h2>Entre em Contato</h2>
         <div className={styles.section}>
-          <form onSubmit={(e) => submitContactForm(e)}>
+          <form ref={form} onSubmit={(e) => submitContactForm(e)}>
             <Card cardClass={styles.card}>
               <label>Nome Completo:</label>
               <input type='text' name='contact-user-name' placeholder='Nome Completo' required />
@@ -29,7 +51,12 @@ const Contact = () => {
               <label>Motivo do Contato:</label>
               <input type='text' name='contact-subject' placeholder='Motivo do Contato' required />
               <label>Mensagem:</label>
-              <textarea name='' cols='30' rows='10' placeholder='Mensagem' required></textarea>
+              <textarea
+                name='contact-message'
+                cols='30'
+                rows='10'
+                placeholder='Mensagem'
+                required></textarea>
               <button className='--btn --btn-primary'>Entrar em Contato</button>
             </Card>
           </form>

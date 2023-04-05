@@ -19,3 +19,4 @@ export { default as ProductsPagination } from './productsPagination/ProductsPagi
 export { default as CheckoutSummary } from './checkoutSummary/CheckoutSummary';
 export { default as CheckoutForm } from './checkoutForm/CheckoutForm';
 export { default as ReviewProduct } from './reviewProduct/ReviewProduct';
+export { default as AdminOrderDetails } from './admin/adminOrderDetails/AdminOrderDetails';

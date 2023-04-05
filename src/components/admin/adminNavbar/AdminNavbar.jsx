@@ -19,11 +19,6 @@ const AdminNavbar = () => {
       <nav>
         <ul>
           <li>
-            <NavLink className={activeLink} to='/admin/home'>
-              Home
-            </NavLink>
-          </li>
-          <li>
             <NavLink className={activeLink} to='/admin/view-all-products'>
               Ver Produtos
             </NavLink>

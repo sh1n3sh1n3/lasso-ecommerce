@@ -4,7 +4,6 @@ export { default as Header } from './header/Header';
 export { default as Footer } from './footer/Footer';
 export { default as Card } from './card/Card';
 export { default as Spinner } from './spinner/Spinner';
-export { default as AdminHome } from './admin/adminHome/AdminHome';
 export { default as AdminNavbar } from './admin/adminNavbar/AdminNavbar';
 export { default as AdminOrders } from './admin/adminOrders/AdminOrders';
 export { default as AdminViewProducts } from './admin/adminViewProducts/AdminViewProducts';

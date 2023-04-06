@@ -1,9 +1,5 @@
 ## Lasso E-commerce
 
-### 🚧 Projeto em Construção 🚧
-
----
-
 ### :computer: [Link do Projeto](https://lasso.herokuapp.com/)
 
 #### Lasso é uma loja virtual full stack completa onde os usuários podem criar conta e fazer login, adicionar produtos ao carrinho, fazer compras, filtrar produtos por categoria, nome, marca, ver a lista de pedidos e etc. O projeto conta com uma dashboard Admin, onde a conta de adiminstrador selecionada pode adicionar novos produtos ao banco de dados, editar e remover produtos.
@@ -13,10 +9,11 @@
 ### :sparkles: Características
 * Usuários podem criar conta, fazer login e recuperar a senha perdida
 * Usuários podem adicinar produtos ao carrinho e alterar a quantidade de produtos desejada
+* O Usuário pode ver a lista de pedidos, status do pedido, dar nota ao pedido e fazer uma avaliação
 * Sistema de paginação automático
 * Filtro de produtos por marca, relevância, nome, ordem, preço e etc.
 * O administrador pode adicionar novos produtos pela dashboard, com upload de imagens para o armazenamento do Firebase
-* O administrador pode ver a lista completa dos produtos.
+* O administrador pode ver a lista completa dos produtos, e atualizar o status do pedido.
 * O administrador pode modificar os produtos como desejar, incluindo alterar a imagem, que remove a imagem antiga do banco de dados e substitui por outra nova, e remover produtos da lista.
 
 ### Principais Tecnologias
@@ -33,6 +30,7 @@ Express | Uma das mais populares frameworks para Nodejs
 ### Outras tecnologias
 Nome | Descrição
 :---: | :--- |
+EmailJS | Ferramenta para envio e recebimento de emails pelo front-end
 Módulos Sass | Uma forma de escrever Sass que simplifica o código e ajuda da refatoração
 Notiflix | Biblioteca de notificações em formato de 'popups'
 React toastify | Biblioteca de caixa de notificações e informações
@@ -49,6 +47,8 @@ Use uma data futura válida, como 12/34.
 Use __qualquer__ CVC de três dígitos.
 
 Use __qualquer valor__ nos outros campos do formulário.
+
+![Captura de tela de 2023-04-06 02-29-57](https://user-images.githubusercontent.com/82607849/230403317-c15ad263-732c-4dd9-b773-6ba037e368cb.png)
 
 :warning: Somente teste, o produto não será comprado de verdade.
 
@@ -112,14 +112,48 @@ Para acessar a Dashboard de administrador crie uma conta no site normalmente com
 ```
 REACT_APP_ADMIN_EMAIL=<sua-conta-admin>
 ```
-
+  
 Recomendo que use um email real para ter a funcionalidade de recuperação de senha
+  
+---
+  
+### Formulário de contato
+  
+O formulário de contato foi construído usando o EmailJS, um conjunto de ferramentas de envio e recebimento de emails que usa o front-end, sem a necessidade de um servidor.
+Para começar, acesse o site do [EmailJS](https://www.emailjs.com/) e crie uma conta gratúita. Após isso siga os seguintes passos:
+
+1. Na dashboard do EmailJS, clique em 'Add New Service', escolha o provedor de email de sua preferência e conecte, nesse caso, eu ultilizei o Gmail.
+2. Anote a __Service ID__.
+
+![Captura de tela de 2023-04-06 02-17-05](https://user-images.githubusercontent.com/82607849/230406064-200d431a-cee7-423f-98dd-ceeda64fe3ad.png)
+
+3. Ainda na dashboard, vá até 'Email Templates', clique em 'Create New Template' e faça um modelo de email de sua preferencia, esse será o modelo que você irá receber com as informações que o cliente passar no formulário, as referências precisam ser iguais ao atributo __name='valor'__ dos inputs, vou deixar um exemplo de como eu fiz o meu abaixo:
+
+![emailjs-template](https://user-images.githubusercontent.com/82607849/230408194-41fc15f8-3a68-411d-bf71-bd048f8f5f4c.png)
+
+4. Após feito isso, anote o __Template ID__
+
+![Captura de tela de 2023-04-06 02-17-45](https://user-images.githubusercontent.com/82607849/230409365-753708cf-111d-4727-89c1-58ab8dd0f6d5.png)
+  
+5. Agora a última chave que você vai precisar, vá no menu de navegação, clique no seu nome de usuário para entrar nas configurações, na aba 'General', anote sua __Public Key__.
+  
+![Captura de tela de 2023-04-06 02-18-30](https://user-images.githubusercontent.com/82607849/230410801-ac32a3bd-8540-45c7-b70b-a097712b74e0.png)
+  
+6. No seu arquivo .env, adicione o trecho de código abaixo substituindo '<sua-chave-aqui>' pelas respectivas chaves do EmailJS, na seguinte ordem: __Pública, Service e Template__.
+
+```
+REACT_APP_EMAILJS_PUBLIC_KEY=<sua-chave-aqui>
+REACT_APP_EMAILJS_SERVICE_ID=<sua-chave-aqui>
+REACT_APP_EMAILJS_TEMPLATE_ID=<sua-chave-aqui>
+```
 
 ---
-
+  
 ### :notebook: Licença
 
 Criado e distribuído sob a licença __MIT__, veja LICENSE.txt para mais informações.
+  
+---
 
 ### :handshake: Contribuições
 
@@ -129,6 +163,8 @@ As contribuições são o que torna a comunidade de código aberto um lugar incr
 
 Se você tiver uma sugestão para melhorar o projeto, faça um fork do repositório e crie uma solicitação pull. Você também pode simplesmente abrir uma issue com a tag "melhoria". Se puder, por favor, dê para dar uma estrela ao projeto! Obrigado.
 
+---  
+  
 ### Imagens
 
 #### Slider de imagens

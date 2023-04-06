@@ -16,6 +16,7 @@ import {
   CheckoutSuccess,
   OrderHistory,
   OrderDetails,
+  Error404,
 } from './pages';
 
 // Components
@@ -54,6 +55,7 @@ function App() {
           <Route path='/order-history' element={<OrderHistory />} />
           <Route path='/order-details/:id' element={<OrderDetails />} />
           <Route path='/review-product/:id' element={<ReviewProduct />} />
+          <Route path='*' element={<Error404 />} />
         </Routes>
         <Footer />
       </BrowserRouter>

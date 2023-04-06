@@ -8,6 +8,7 @@ import { auth } from '../../firebase/config';
 import { toast } from 'react-toastify';
 import { FaShoppingCart, FaTimes, FaUserCircle } from 'react-icons/fa';
 import { AiOutlineBars } from 'react-icons/ai';
+import LogoImage from '../../assets/img/logo.png';
 
 import { setActiveUser, removeActiveUser } from '../../redux/slices/authSlice';
 import {
@@ -24,7 +25,7 @@ const logo = (
   <div className={styles.logo}>
     <Link to='/'>
       <h2>
-        Lasso<span>.</span>
+        <img src={LogoImage} alt='' /> Lasso<span>.</span>
       </h2>
     </Link>
   </div>

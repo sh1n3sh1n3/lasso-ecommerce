@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,8 +8,9 @@ import { deleteObject, ref } from 'firebase/storage';
 
 import { selectProducts, storeProducts } from '../../../redux/slices/productSlice';
 import useFetchCollection from '../../../customHooks/useFetchCollection';
+import { filterProductsBySearch, selectFilteredProducts } from '../../../redux/slices/filterSlice';
 
-import Spinner from '../../spinner/Spinner';
+import { Spinner, SearchBar } from '../../index';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Notiflix from 'notiflix';
@@ -17,9 +18,11 @@ import Notiflix from 'notiflix';
 import styles from './AdminViewProducts.module.scss';
 
 const AdminViewProducts = () => {
+  const [search, setSearch] = useState('');
   const { data, loading } = useFetchCollection('products');
-  const products = useSelector(selectProducts);
   const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
+  const filteredProducts = useSelector(selectFilteredProducts);
 
   useEffect(() => {
     dispatch(
@@ -28,6 +31,10 @@ const AdminViewProducts = () => {
       }),
     );
   }, [dispatch, data]);
+
+  useEffect(() => {
+    dispatch(filterProductsBySearch({ products, search }));
+  }, [dispatch, search, products]);
 
   const confirmProductDeletion = (id, imgUrl) => {
     Notiflix.Confirm.show(
@@ -68,7 +75,13 @@ const AdminViewProducts = () => {
     <div className={styles.container}>
       {loading && <Spinner />}
       <h2>Todos os Produtos</h2>
-      {products.length === 0 ? (
+      <div className={styles.search}>
+        <p>
+          <strong>{filteredProducts.length}</strong> produtos encontrados.
+        </p>
+        <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
+      </div>
+      {filteredProducts.length === 0 ? (
         <p>Nenhum produto encontrado.</p>
       ) : (
         <table>
@@ -82,7 +95,7 @@ const AdminViewProducts = () => {
               <th>Opções</th>
             </tr>
           </thead>
-          {products.map((product, i) => {
+          {filteredProducts.map((product, i) => {
             const { id, name, price, imgUrl, category } = product;
 
             return (

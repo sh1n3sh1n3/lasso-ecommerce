@@ -38,5 +38,9 @@
     tr {
       border-bottom: 1px solid var(--secondary-blue);
     }
+
+    tbody:last-of-type > tr {
+      border-bottom: none;
+    }
   }
 }

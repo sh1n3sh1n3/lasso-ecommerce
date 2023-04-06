@@ -10,7 +10,7 @@ import { selectProducts, storeProducts } from '../../../redux/slices/productSlic
 import useFetchCollection from '../../../customHooks/useFetchCollection';
 import { filterProductsBySearch, selectFilteredProducts } from '../../../redux/slices/filterSlice';
 
-import { Spinner, SearchBar } from '../../index';
+import { Spinner, SearchBar, ProductsPagination } from '../../index';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Notiflix from 'notiflix';
@@ -23,6 +23,11 @@ const AdminViewProducts = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
   const filteredProducts = useSelector(selectFilteredProducts);
+  const [currentProductPage, setCurrentProductPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(9);
+  const indexOfLastProduct = currentProductPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   useEffect(() => {
     dispatch(
@@ -95,7 +100,7 @@ const AdminViewProducts = () => {
               <th>Opções</th>
             </tr>
           </thead>
-          {filteredProducts.map((product, i) => {
+          {currentProducts.map((product, i) => {
             const { id, name, price, imgUrl, category } = product;
 
             return (
@@ -124,6 +129,12 @@ const AdminViewProducts = () => {
           })}
         </table>
       )}
+      <ProductsPagination
+        productsPerPage={productsPerPage}
+        currentProductPage={currentProductPage}
+        setCurrentProductPage={setCurrentProductPage}
+        totalNumberOfProducts={filteredProducts.length}
+      />
     </div>
   );
 };

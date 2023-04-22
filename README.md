@@ -75,15 +75,15 @@ __Passo 2:__
 __Passo 3:__
 
 1. Crie um arquivo chamado __.env__ na pasta principal do site, 'pasta root'.
-2. Adicione o trecho de código substituindo '<sua-chave-aqui>' pelas respectivas chaves que foram passadas para você após a criação da conta do Firebase
+2. Adicione o trecho de código substituindo '__sua-chave-aqui__' pelas respectivas chaves que foram passadas para você após a criação da conta do Firebase
 
 ```
-REACT_APP_API_KEY=<sua-chave-aqui>
-REACT_APP_APP_ID=<sua-chave-aqui>
-REACT_APP_AUTH_DOMAIN=<sua-chave-aqui>
-REACT_APP_MESSAGING_SENDER_ID=<sua-chave-aqui>
-REACT_APP_PROJECT_ID=<sua-chave-aqui>
-REACT_APP_STORAGE_BUCKET=<sua-chave-aqui>
+REACT_APP_API_KEY=sua-chave-aqui
+REACT_APP_APP_ID=sua-chave-aqui
+REACT_APP_AUTH_DOMAIN=sua-chave-aqui
+REACT_APP_MESSAGING_SENDER_ID=sua-chave-aqui
+REACT_APP_PROJECT_ID=sua-chave-aqui
+REACT_APP_STORAGE_BUCKET=sua-chave-aqui
 ```
 Isso será o que vai te dar acesso á sua conta da Firebase e o serviço da Firestore.
 
@@ -91,11 +91,11 @@ __Passo 4:__
 
 1. Crie uma conta de testes grátis no [Stripe](https://stripe.com/) para ter acesso ás chaves para o serviço de pagamento.
 2. Na dashboard do Stripe, revele e copie as chaves 'publicável' e 'secreta'.
-3. No seu arquivo .env criado no passo anterior, adicione o trecho de código abaixo substituindo '<sua-chave-aqui>' pelas respectivas chaves do Stripe.
+3. No seu arquivo .env criado no passo anterior, adicione o trecho de código abaixo substituindo '__sua-chave-aqui__' pelas respectivas chaves do Stripe.
 
 ```
-REACT_APP_STRIPE_PUBLIC_KEY=<sua-chave-aqui>
-REACT_APP_STRIPE_SECRET_KEY=<sua-chave-aqui>
+REACT_APP_STRIPE_PUBLIC_KEY=sua-chave-aqui
+REACT_APP_STRIPE_SECRET_KEY=sua-chave-aqui
 ```
 
 __Passo 5:__
@@ -107,10 +107,10 @@ __Passo 5:__
 
 ### Conta de administrador / Dashboard
 
-Para acessar a Dashboard de administrador crie uma conta no site normalmente com o email de sua escolha para ser o email do Admin, depois adicione mais uma linha de código no seu arquivo __.env__ substituindo <sua-conta-admin> pelo email que você criou.
+Para acessar a Dashboard de administrador crie uma conta no site normalmente com o email de sua escolha para ser o email do Admin, depois adicione mais uma linha de código no seu arquivo __.env__ substituindo '__sua-conta-admin__' pelo email que você criou.
 
 ```
-REACT_APP_ADMIN_EMAIL=<sua-conta-admin>
+REACT_APP_ADMIN_EMAIL=sua-conta-admin
 ```
   
 Recomendo que use um email real para ter a funcionalidade de recuperação de senha
@@ -139,12 +139,12 @@ Para começar, acesse o site do [EmailJS](https://www.emailjs.com/) e crie uma c
   
 ![Captura de tela de 2023-04-06 02-18-30](https://user-images.githubusercontent.com/82607849/230410801-ac32a3bd-8540-45c7-b70b-a097712b74e0.png)
   
-6. No seu arquivo .env, adicione o trecho de código abaixo substituindo '<sua-chave-aqui>' pelas respectivas chaves do EmailJS, na seguinte ordem: __Pública, Service e Template__.
+6. No seu arquivo .env, adicione o trecho de código abaixo substituindo '__sua-chave-aqui__' pelas respectivas chaves do EmailJS, na seguinte ordem: __Pública, Service e Template__.
 
 ```
-REACT_APP_EMAILJS_PUBLIC_KEY=<sua-chave-aqui>
-REACT_APP_EMAILJS_SERVICE_ID=<sua-chave-aqui>
-REACT_APP_EMAILJS_TEMPLATE_ID=<sua-chave-aqui>
+REACT_APP_EMAILJS_PUBLIC_KEY=sua-chave-aqui
+REACT_APP_EMAILJS_SERVICE_ID=sua-chave-aqui
+REACT_APP_EMAILJS_TEMPLATE_ID=sua-chave-aqui
 ```
 
 ---

@@ -1,6 +1,6 @@
 ## Lasso E-commerce
 
-### :computer: [Link do Projeto](https://lasso.herokuapp.com/)
+### :computer: [Link do Projeto](https://lasso-ecommerce.up.railway.app/)
 
 #### Lasso é uma loja virtual full stack completa onde os usuários podem criar conta e fazer login, adicionar produtos ao carrinho, fazer compras, filtrar produtos por categoria, nome, marca, ver a lista de pedidos e etc. O projeto conta com uma dashboard Admin, onde a conta de adiminstrador selecionada pode adicionar novos produtos ao banco de dados, editar e remover produtos.
 
@@ -175,4 +175,4 @@ Se você tiver uma sugestão para melhorar o projeto, faça um fork do repositó
 
 #### Veja mais no link do projeto abaixo
 
-### :computer: [Link do Projeto](https://lasso.herokuapp.com/)
+### :computer: [Link do Projeto](https://lasso-ecommerce.up.railway.app/)

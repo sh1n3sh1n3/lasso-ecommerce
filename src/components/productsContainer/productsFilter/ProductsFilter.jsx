@@ -7,12 +7,13 @@ import {
 } from '../../../redux/slices/filterSlice';
 
 import { AiOutlineDoubleRight } from 'react-icons/ai';
+import { FaTimesCircle } from 'react-icons/fa';
 
 import { selectMaxPrice, selectMinPrice, selectProducts } from '../../../redux/slices/productSlice';
 
 import styles from './ProductsFilter.module.scss';
 
-const ProductFilter = () => {
+const ProductFilter = ({ setShowMobileFiltersList, showMobileFiltersList }) => {
   const [category, setCategory] = useState('Todos');
   const [brand, setBrand] = useState('Todos');
   const [price, setPrice] = useState(3000);
@@ -44,8 +45,15 @@ const ProductFilter = () => {
     setPrice(maxPrice);
   };
 
+  const handleToggleList = () => {
+    setShowMobileFiltersList(!showMobileFiltersList);
+  };
+
   return (
     <div className={styles.container}>
+      <button className={`--btn --btn-danger ${styles.closeBtn}`} onClick={handleToggleList}>
+        Fechar <FaTimesCircle style={{ position: 'absolute', right: '5px' }} size={20} />
+      </button>
       <h4>Categorias</h4>
       <div className={styles.categories}>
         {allProductsCategories.map((cat, index) => {

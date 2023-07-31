@@ -40,11 +40,16 @@ const Product = () => {
           className={
             showMobileFiltersList ? `${styles.filter} ${styles.show}` : `${styles.filter}`
           }>
-          {loading ? null : <ProductsFilter />}
+          {loading ? null : (
+            <ProductsFilter
+              setShowMobileFiltersList={setShowMobileFiltersList}
+              showMobileFiltersList={showMobileFiltersList}
+            />
+          )}
         </aside>
         <div className={styles.content}>
           {loading ? <Spinner /> : <ProductsList products={products} />}
-          <div className={styles.icon} onClick={toggleMobileFilter}>
+          <div className={styles.listToggler} onClick={toggleMobileFilter}>
             <FaCogs size={20} color='var(--dark-orange)' />
             <p>
               <strong>{showMobileFiltersList ? 'Esconder Filtros' : 'Mostrar Filtros '}</strong>

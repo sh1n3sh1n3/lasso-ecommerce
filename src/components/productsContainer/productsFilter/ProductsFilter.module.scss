@@ -1,4 +1,13 @@
 .container {
+  .closeBtn {
+    display: none;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
   h4 {
     margin-top: 1rem;
   }
@@ -30,6 +39,10 @@
 
 @media screen and (max-width: 700px) {
   .container {
+    padding-top: 32px;
+    .closeBtn {
+      display: flex;
+    }
     .categories button {
       width: 100%;
     }

@@ -28,6 +28,9 @@
     .page {
       color: var(--dark-orange);
     }
+    @media (max-width: 475px) {
+      font-size: 1.3rem;
+    }
   }
 }
 .active {

@@ -7,6 +7,9 @@
   justify-content: center;
   align-items: center;
   height: 8rem;
+  @media (max-width: 800px) {
+    padding-block: 65px;
+  }
 
   p {
     color: var(--color-white);

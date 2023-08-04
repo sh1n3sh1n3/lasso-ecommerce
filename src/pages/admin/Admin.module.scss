@@ -1,12 +1,15 @@
 .admin {
   display: flex;
-
-  .navbar {
-    width: 25%;
-    min-height: 80vh;
+  position: relative;
+  @media (max-width: 800px) {
+    display: initial;
   }
+
   .content {
     width: 75%;
     padding: 1rem;
+    @media (max-width: 800px) {
+      width: 100%;
+    }
   }
 }

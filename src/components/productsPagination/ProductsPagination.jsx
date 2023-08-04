@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+
 import styles from './ProductsPagination.module.scss';
 
 const ProductsPagination = ({
@@ -43,7 +45,8 @@ const ProductsPagination = ({
       <li
         className={currentProductPage === productsPagesNumbers[0] ? `${styles.hidden}` : null}
         onClick={goToPreviousPage}>
-        Anterior
+        <AiOutlineLeft />
+        <span>Anterior</span>
       </li>
       {productsPagesNumbers.map((pageNumber) => {
         if (pageNumber < maxPageNumberLimit + 1 && pageNumber > minPageNumberLimit) {
@@ -60,7 +63,8 @@ const ProductsPagination = ({
       <li
         className={currentProductPage === productsPagesNumbers.length ? `${styles.hidden}` : null}
         onClick={goToNextPage}>
-        Próxima
+        <span>Próxima</span>
+        <AiOutlineRight />
       </li>
       <p>
         <strong className={styles.page}>{`Página ${currentProductPage}`}</strong>

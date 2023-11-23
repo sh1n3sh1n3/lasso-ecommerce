@@ -4,9 +4,9 @@ import emailjs from '@emailjs/browser';
 import styles from './Contact.module.scss';
 
 import { Card } from '../../components/index';
-import { FaEnvelope, FaPhoneAlt, FaTwitter } from 'react-icons/fa';
 import { GoLocation } from 'react-icons/go';
 import { toast } from 'react-toastify';
+import { FaEnvelope, FaPhoneAlt, FaTwitter } from 'react-icons/fa';
 
 const Contact = () => {
   const form = useRef();
